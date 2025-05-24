@@ -1,90 +1,136 @@
-# 自动部署脚本README
+# MathModelAgent 自动部署脚本 README
 
 ## 本次更新
 
-- **批处理脚本**：感谢群友Pluto的`local_start.bat`，非非给它修了BUG！现在会检查MathModelAgent目录下的Redis和Node.js，没找到就自动下载，环境变量啥的再也不用愁！但小坑：没得选路径，爱用不用！😎
+新增 `start_mma.bat` 和 `start_mma_all_windows.bat` 启动脚本。
 
 ## 脚本介绍
 
-### Python脚本：`auto_setup_run_win.py`
+### 批处理脚本：auto_setup_run.bat
 
-**这是啥？**
-Windows用户的福音！这脚本自动检查环境、装依赖、配环境变量，一键启动MathModelAgent的前端、后端、Redis，省心到飞起！
+**这是啥？**  
+Windows 懒人专属！自动检查 Python、Node.js、Redis，缺啥下啥，配置环境变量，启动 MathModelAgent 全家桶，简单粗暴！
 
-**咋用？**
+**咋用？**  
+1. 双击 `auto_setup_run.bat`。  
+2. 脚本检查 Python（需 3.8+）。  
+3. 缺 Node.js？自动下载 v20.17.0 到 `nodejs-portable`。  
+4. 缺 Redis？自动下载 v5.0.14.1 到 `redis-portable`。  
+5. 自动配置 `backend/.env.dev` 和 `frontend/.env`（需手动填 API key 和 model）。  
+6. 启动 Redis、后端（`http://localhost:8000`）、前端（`http://localhost:5173`），弹出三个窗口。  
+7. 想停？关闭 “Redis Server”、“Backend Server”、“Frontend Server” 窗口。
 
-1. 先装好Python（3.12最香）、Redis、Node.js。
-2. 敲`python auto_setup_run_win.py`。
-3. 弹出对话框让你选Redis和Node.js的安装路径（**非非提醒**：眼睛擦亮，选错脚本会闹脾气！）。
-4. 脚本检查Redis、装依赖、配`.env`，然后启动全家桶。
-5. 日志喊前端在`http://localhost:5173`，后端在`http://0.0.0.0:8000`（或空闲端口），你就赢啦！
+### 批处理脚本：start_mma.bat
 
-**亮点搁哪呢？**
+**这是啥？**  
+Windows 简易启动脚本，适合已配置好环境的用户，直接启动前端和后端。
 
-- 环境变量没配？手动选路径，灵活！
-- 端口被占？动态扫描，自动找空位！
-- 日志详细到爆，`log/main.log`里非非帮你记好每一步！
-- Ctrl+C或关窗口，脚本乖乖清理，不留垃圾！
+**咋用？**  
+1. 确保 Python、Node.js、pnpm、Redis 已安装，`backend/.env.dev` 和 `frontend/.env` 已配置。  
+2. 双击 `start_mma.bat`。  
+3. 启动后端（`http://localhost:8000`）和前端（`http://localhost:5173`），需手动启动 Redis。  
+4. 关闭窗口停止服务。
 
-**坑点**：依赖得自己装，路径选错别来找非非哭！😃
+### 批处理脚本：start_mma_all_windows.bat
 
-### Python脚本：`auto_setup_run_win_and_mac.py`
-**这是啥？**
-跨平台神器！Windows、macOS通吃，功能跟Windows版差不多，但macOS用户也能浪起来！
+**这是啥？**  
+Windows 批处理启动脚本，适合已安装 Node.js 的用户，自动启动 Redis、前端、后端，弹出三个窗口，操作直观！
 
-**咋用？**
-1. 装Python（3.12推荐）、Redis、Node.js。
-2. 跑`python auto_setup_run_win_and_mac.py`。
-3. 选Redis和Node.js路径（**非非警告**：选错脚本直接罢工！）。
-4. 剩下跟Windows版一样，启动后端口同上。
+**咋用？**  
 
-**亮点搁哪呢？**
-- 自动识别系统，Windows/macOS随便跑！
-- 日志、端口扫描、清理功能一个不少！
-- macOS路径可能有点怪（Homebrew装的可能在`/usr/local/bin`或`/opt/homebrew/bin`）。
+1. 确保 Python（3.8+）、Node.js、pnpm 已安装，Redis 放在 `redis-portable`。  
+2. 双击 `start_mma_all_windows.bat`。  
+3. 自动配置环境变量，安装依赖，启动 Redis、后端（`http://localhost:8000`）、前端（`http://localhost:5173`）。  
+4. 关闭三个窗口停止服务。
 
-**坑点**：macOS支持还在磨合，可能有很多bug，遇到问题自己改脚本，非非看好你！😜 依赖还得手动装哦！
+### Python 脚本：auto_setup_run_win.py
 
-### 批处理脚本：`local_start.bat`
-**这是啥？**
-Windows懒人专属！一点就跑，Python、Redis、Node.js缺啥下啥，MathModelAgent直接起飞！简单粗暴，非非超爱！
+**这是啥？**  
+Windows 专用 Python 脚本，自动检查环境、安装依赖、动态分配端口，启动 MathModelAgent 系统。
 
-**咋用？**
+**咋用？**  
+1. 安装 Python（推荐 3.12）、Redis、Node.js、pnpm。  
+2. 运行 `python auto_setup_run_win.py`。  
+3. 弹出对话框选择 Redis 和 Node.js 安装路径（**非非提醒**：路径选错脚本会生气！）。  
+4. 输入 API key 和 model（如 `deepseek/deepseek-chat`）。  
+5. 脚本检查 Redis，安装依赖，配置 `.env`，启动 Redis、后端（`http://localhost:8000` 或动态端口）、前端（`http://localhost:5173`）。  
+6. 查看日志 `log/main.log`，Ctrl+C 安全退出。
 
-1. 双击`local_start.bat`。
-2. 检查Python（3.8+够用）。
-3. 没Node.js？自动下v20.17.0到`MathModelAgent/nodejs-portable`。
-4. 没Redis？自动下5.0.14.1到`MathModelAgent/redis-portable`。
-5. 配`.env`（API key和model得你自己填），装依赖，启动Redis、后端、前端。
-6. 三个窗口弹出：Redis、后端（`http://0.0.0.0:8000`）、前端（`http://localhost:5173`）。
-7. 想停？关窗口就好！
+### Python 脚本：auto_setup_run_win_and_mac.py
 
-**亮点搁哪呢？**
+**这是啥？**  
+跨平台 Python 脚本，支持 Windows 和 macOS，功能与 `auto_setup_run_win.py` 类似。
 
-- 全自动，依赖直接下载，懒人福音！
-- 便携版解压到项目目录，省心！
-- 出错暂停，提示一目了然！
+**咋用？**  
 
-**坑点**：路径没得选，版本固定（Node.js v20.17.0，Redis 5.0.14.1），想要最新版自己装！不喜欢？用Python脚本或改bat，非非给你点赞！😎
+1. 安装 Python（推荐 3.12）、Redis、Node.js、pnpm。  
+2. 运行 `python auto_setup_run_win_and_mac.py`。  
+3. 选择 Redis 和 Node.js 路径（macOS 可能在 `/usr/local/bin` 或 `/opt/homebrew/bin`）。  
+4. 输入 API key 和 model。  
+5. 启动服务，端口同上，日志查看 `log/main.log`。
 
-## TODO
+## 项目输出
 
-- **用户体验**：错误提示更清晰，非非不想看你一脸懵！加个详细手册，教你装环境、跑脚本！
-- **跨平台**：让`auto_setup_run_win_and_mac.py`在macOS稳如老狗，再补点说明。
-- **依赖管理**：加Python版本检查，争取自动下Python、Redis、Node.js（懒人梦想，冲！）。
-- Docker部署：这个非非还不会，要是你能编写就好了...
+- 服务启动后，生成文件保存在 `backend/project/work_dir/xxx/`：  
+  - `notebook.ipynb`：生成代码。  
+  - `res.md`：Markdown 格式结果。  
+  - `res.docx`：带图片的 Word 文档。
 
-**非非的终极提醒**：路径选错我可不负责！有好点子？改脚本吧，别来烦我，众所周知，非非超渣！😜
+## 视频教程
+
+- [auto_setup_run.bat 教程](./auto_setup_run.mp4)
+- [auto_setup_run_win.py 教程](./auto_setup_run_win.mp4)
 
 ## 脚本对比
 
-| 特性 | `auto_setup_run_win.py` | `auto_setup_run_win_and_mac.py` | `local_start.bat` |
-|------|:-----------------------:|---------------------------------|-------------------|
-| **平台** | Windows | Windows, macOS | Windows |
-| **功能** | 自动检查、装依赖、启动系统 | 同Windows版，跨平台 | 自动下载依赖、启动系统 |
-| **使用** | `python auto_setup_run_win.py`，选路径 | `python auto_setup_run_win_and_mac.py`，选路径 | 双击`local_start.bat` |
-| **依赖** | Python（3.12推荐）、Redis、Node.js（手动装） | 同Windows版 | Python（3.8+），自动下Node.js v20.17.0、Redis 5.0.14.1 |
-| **路径选择** | 手动选 | 手动选 | 自动下到项目目录 |
-| **亮点** | 环境检测、端口扫描、日志、自动清理 | 同Windows版，适配macOS | 自动下载、错误暂停、窗口化 |
-| **输出** | 前端：`http://localhost:5173`<br>后端：`http://0.0.0.0:8000` | 同Windows版 | 同Python脚本，分窗口 |
-| **坑点** | 手动装依赖，路径要准 | macOS好多bug，没办法，非非没有mac | 固定版本，无路径选择，`.env`手动配 |
+### 启动脚本
+
+| 特性 | start_mma.bat | start_mma_all_windows.bat |
+|------|---------------|---------------------------|
+| 平台 | Windows | Windows |
+| 功能 | 快速启动前端和后端（需手动配置环境） | 启动 Redis、前端、后端，自动配置环境 |
+| 使用 | 双击运行 | 双击运行 |
+| 依赖 | Python（3.12推荐）、Redis、Node.js、pnpm（手动安装） | Python（3.8+）、Node.js、pnpm（手动），Redis 放 `redis-portable` |
+| 路径选择 | 无 | 固定 `redis-portable` |
+| 亮点 | 轻量快速，窗口化运行 | 自动配置 `.env`，三个窗口并行，清华镜像 |
+| 输出 | 前端：`http://localhost:5173`<br>后端：`http://localhost:8000` | 同左 |
+| 坑点 | 不检查环境，不启动 Redis，需手动配置 | 需手动装 Node.js，Redis 路径固定 |
+
+### 安装配置脚本
+
+| 特性 | auto_setup_run.bat | auto_setup_run_win.py | auto_setup_run_win_and_mac.py |
+|------|---------------------|------------------------|-------------------------------|
+| 平台 | Windows | Windows | Windows, macOS |
+| 功能 | 自动下载依赖、配置并启动系统 | 环境检测、动态端口、配置并启动 | 同 Windows 版，跨平台 |
+| 使用 | 双击运行 | `python auto_setup_run_win.py` | `python auto_setup_run_win_and_mac.py` |
+| 依赖 | Python（3.8+），自动下 Node.js v20.17.0、Redis 5.0.14.1 | Python（3.12推荐）、Redis、Node.js、pnpm（手动） | 同 Windows 版 |
+| 路径选择 | 自动下载到项目目录 | 手动选择 | 手动选择 |
+| 亮点 | 全自动下载、窗口化、清华镜像 | 端口扫描、详细日志、API 验证 | 跨平台、端口扫描、日志 |
+| 输出 | 前端：`http://localhost:5173`<br>后端：`http://localhost:8000` | 同左（后端端口可变） | 同左（后端端口可变） |
+| 坑点 | 固定版本、需联网 | 需手动装依赖、路径要准 | macOS 可能有 bug |
+
+## 选择指南
+
+- **启动脚本**：适用于已配置好环境的用户，快速启动系统。  
+  - `start_mma.bat`：轻量，需手动启动 Redis。  
+  - `start_mma_all_windows.bat`：自动启动 Redis、前端、后端，窗口化操作。  
+
+- **安装配置脚本**：适用于初次部署或环境不完整的用户，自动安装依赖并配置系统。  
+  - `auto_setup_run.bat`：全自动下载依赖，适合 Windows 新手。  
+  - `auto_setup_run_win.py`：支持动态端口，详细日志，适合 Windows 进阶用户。  
+  - `auto_setup_run_win_and_mac.py`：跨平台支持，适合 macOS 用户。  
+
+## TODO
+
+- 优化错误提示，添加交互式配置向导。  
+- 完善 macOS 支持，测试 Linux 兼容性。  
+- Docker 镜像，非非喊你来贡献！  
+
+## 终极提醒
+
+- 路径选错，后果自负！选路径时擦亮眼，特别是 Python 脚本！  
+- 依赖得手动装，别指望脚本啥都干！  
+- 有 bug？改脚本！非非超忙，欢迎 PR！😜  
+- 想用最新版 Node.js 或 Redis？手动安装后用 Python 脚本，灵活又自由！  
+
+有好点子？快去改脚本，众所周知，非非超渣！😎
