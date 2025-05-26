@@ -1,4 +1,4 @@
-# MathModelAgent 自动部署脚本 README
+# [MathModelAgent](https://github.com/jihe520/MathModelAgent)自动部署脚本 README
 
 ## 本次更新
 
@@ -78,8 +78,8 @@ Windows 专用 Python 脚本，自动检查环境、安装依赖、动态分配�
 
 ## 视频教程
 
-- [auto_setup_run.bat 教程](./auto_setup_run.mp4)
-- [auto_setup_run_win.py 教程](./auto_setup_run_win.mp4)
+- [auto_setup_run.bat 教程](./auto_setup_run[-v bat].mp4)
+- [auto_setup_run_win.py 教程](./auto_setup_run_win[-v py].mp4)
 
 ## 脚本对比
 
