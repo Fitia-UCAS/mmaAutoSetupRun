@@ -220,6 +220,88 @@ mjx-container { break-inside: avoid; }
 .md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
 
 
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+
 
 :root {
   /* == 字体设置 == */
@@ -249,7 +331,7 @@ mjx-container { break-inside: avoid; }
   /* 默认调用 base-font */
   --toc-font: "";
   /* 默认调用 base-font-size */
-  --toc-font-size: "";
+  --toc-font-size: var(--base-font-size);
   /* 公式字体 */
   --math-font-size: 1em;
   /* 表格字体 */
@@ -310,16 +392,21 @@ body {
   #write {
     padding: 0 !important;
   }
+
   h2 {
     break-before: var(--page-break-before-h2);
   }
+
   h2:first-of-type {
     break-before: avoid-page;
   }
+
   @page {
-    margin: 1.8cm 2cm 1.2cm 2cm !important; /* 页边距 */
+    margin: 1.8cm 2cm 1.2cm 2cm !important;
+    /* 页边距 */
   }
 }
+
 #write {
   font-family: var(--base-Latin-font), var(--base-Chinese-font), serif;
   font-size: var(--base-font-size);
@@ -332,16 +419,19 @@ body {
     display: inline-block; */
   /* 这里可以试分栏的，但确实不适合实现 */
 }
+
 #write .md-math-block,
 #write .md-rawblock,
 #write p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 #write p {
   text-align: left;
   line-height: var(--base-line-height);
 }
+
 #write a {
   color: var(--link-color-light);
 }
@@ -370,6 +460,7 @@ strong {
     box-shadow: 0 0 24px 12px #cccccc;
   }
 }
+
 .MathJax {
   font-size: var(--math-font-size);
 }
@@ -384,33 +475,42 @@ strong {
 .sidebar-content {
   counter-reset: outline-h1 outline-h2 outline-h3 outline-h4 outline-h5 outline-h6;
 }
+
 .sidebar-content .outline-h1 {
   counter-reset: outline-h2 outline-h3 outline-h4 outline-h5 outline-h6;
 }
+
 .sidebar-content .outline-h2 {
   counter-reset: outline-h3 outline-h4 outline-h5 outline-h6;
 }
+
 .sidebar-content .outline-h2 .outline-label:before {
   counter-increment: outline-h2;
   content: counter(outline-h2) " ";
 }
+
 .sidebar-content .outline-h3 {
   counter-reset: outline-h4 outline-h5 outline-h6;
 }
+
 .sidebar-content .outline-h3 .outline-label:before {
   counter-increment: outline-h3;
   content: counter(outline-h2) "." counter(outline-h3) "  ";
 }
+
 .sidebar-content .outline-h4 {
   counter-reset: outline-h5 outline-h6;
 }
+
 .sidebar-content .outline-h4 .outline-label:before {
   counter-increment: outline-h4;
   content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "  ";
 }
+
 .sidebar-content .outline-h5 {
   counter-reset: outline-h6;
 }
+
 .sidebar-content .outline-h5 .outline-label:before {
   counter-increment: outline-h5;
   content: counter(outline-h2) "." counter(outline-h3) "." counter(outline-h4) "." counter(outline-h5) "  ";
@@ -430,10 +530,10 @@ pre.md-meta-block {
   font-size: 0.8em;
 }
 
-#write > h3.md-focus:before,
-#write > h4.md-focus:before,
-#write > h5.md-focus:before,
-#write > h6.md-focus:before,
+#write>h3.md-focus:before,
+#write>h4.md-focus:before,
+#write>h5.md-focus:before,
+#write>h6.md-focus:before,
 h3.md-focus:before,
 h4.md-focus:before,
 h5.md-focus:before,
@@ -456,6 +556,7 @@ h6.md-focus:before {
 #write {
   counter-reset: heading-h2 heading-h3 heading-h4 heading-h5 heading-h6;
 }
+
 #write h1,
 #write h2,
 #write h3,
@@ -465,77 +566,94 @@ h6.md-focus:before {
   font-weight: bold;
   break-after: avoid-page !important;
 }
+
 #write h1 {
   font-family: var(--heading-Latin-font), var(--title-Chinese-font), serif;
   text-align: center;
   column-span: all;
   font-size: var(--title-font-size);
 }
+
 #write h2 {
   font-family: var(--heading-Latin-font), var(--h2-Chinese-font), serif;
   font-size: var(--h2-font-size);
 }
+
 #write h3 {
   font-family: var(--heading-Latin-font), var(--h3-Chinese-font), serif;
   font-size: var(--h3-font-size);
   line-height: var(--h3-font-size);
 }
+
 #write h4 {
   font-family: var(--heading-Latin-font), var(--h4-Chinese-font), serif;
   font-size: var(--h4-font-size);
   line-height: var(--h4-font-size);
 }
+
 #write h5 {
   font-family: var(--heading-Latin-font), var(--h5-Chinese-font), serif;
   font-size: var(--h5-font-size);
   line-height: var(--h5-font-size);
 }
+
 #write h6 {
   font-family: var(--heading-Latin-font), var(--h6-Chinese-font), serif;
   font-size: var(--h6-font-size);
   /* 没有写错，为了避免行距太小才这么写 */
   line-height: var(--h5-font-size);
 }
+
 #write h1 {
   counter-set: heading-h2 0 heading-h3 0 heading-h4 0 heading-h5 0 heading-h6 0;
 }
+
 #write h2 {
   counter-set: heading-h3 0 heading-h4 0 heading-h5 0 heading-h6 0;
 }
+
 #write h3 {
   counter-set: heading-h4 0 heading-h5 0 heading-h6 0;
 }
+
 #write h4 {
   counter-set: heading-h5 0 heading-h6 0;
 }
+
 #write h5 {
   counter-set: heading-h6 0;
 }
-#write h2:before, h2.md-focus.md-heading:before {
+
+#write h2:before,
+h2.md-focus.md-heading:before {
   content: counter(heading-h2);
   counter-increment: heading-h2;
   margin-right: 1.2em;
 }
 
-#write h3:before, h3.md-focus.md-heading:before {
+#write h3:before,
+h3.md-focus.md-heading:before {
   content: counter(heading-h2) "." counter(heading-h3);
   counter-increment: heading-h3;
   margin-right: 1.2em;
 }
 
-#write h4:before, h4.md-focus.md-heading:before {
+#write h4:before,
+h4.md-focus.md-heading:before {
   content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4);
   counter-increment: heading-h4;
   margin-right: 1.2em;
 }
 
-#write h5:before, h5.md-focus.md-heading:before {
+#write h5:before,
+h5.md-focus.md-heading:before {
   content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5);
   counter-increment: heading-h5;
   margin-right: 1.2em;
 }
 
-#write h6:before, h6.md-focus.md-heading:before {
+#write h6:before,
+h6.md-focus.md-heading:before {
   content: counter(heading-h2) "." counter(heading-h3) "." counter(heading-h4) "." counter(heading-h5) "." counter(heading-h6);
   counter-increment: heading-h6;
   margin-right: 1.2em;
@@ -549,12 +667,16 @@ h6.md-focus:before {
   opacity: 1;
   margin: 0;
 }
-.md-def-footnote:not(:first-child), .md-def-footnote + *:not(.md-def-footnote) {
+
+.md-def-footnote:not(:first-child),
+.md-def-footnote+*:not(.md-def-footnote) {
   margin-top: 1em;
 }
-.md-def-footnote + .md-def-footnote {
+
+.md-def-footnote+.md-def-footnote {
   margin-top: 0.5em;
 }
+
 .md-def-footnote .md-def-name {
   font-weight: inherit;
   padding: 0;
@@ -564,19 +686,23 @@ h6.md-focus:before {
   white-space: nowrap;
   text-align: left;
 }
+
 .md-def-footnote .md-def-name:before {
   content: "［";
   position: static;
   color: inherit;
 }
+
 .md-def-footnote .md-def-name:after {
   content: "］";
   position: static;
   color: inherit;
 }
+
 .md-def-footnote .md-reverse-footnote-area {
   display: none;
 }
+
 .md-def-footnote:hover .md-reverse-footnote-area {
   position: absolute;
   right: -6px;
@@ -587,18 +713,22 @@ h6.md-focus:before {
 .footnotes-area {
   padding-inline-start: 2.5em;
 }
+
 .footnotes-area hr {
   display: none;
 }
+
 .footnotes-area .footnote-line {
   color: var(--text-color);
   font-size: 0.95em;
   margin-top: 0.5em;
 }
+
 .footnotes-area .footnote-line *:not(.md-fn-count) {
   display: inline-block;
   vertical-align: top;
 }
+
 .footnotes-area .footnote-line span.md-fn-count {
   font-weight: inherit;
   padding: 0;
@@ -607,16 +737,19 @@ h6.md-focus:before {
   display: inline-block;
   width: 2.5em;
 }
+
 .footnotes-area .footnote-line span.md-fn-count:before {
   content: "［";
   position: static;
   color: inherit;
 }
+
 .footnotes-area .footnote-line span.md-fn-count:after {
   content: "］";
   position: static;
   color: inherit;
 }
+
 .footnotes-area .footnote-line a.reversefootnote {
   display: none;
 }
@@ -629,15 +762,19 @@ sup.md-footnote {
   background: transparent;
   color: inherit;
 }
+
 sup.md-footnote a {
   color: inherit !important;
 }
+
 sup.md-footnote:not(.md-expand) {
   margin-inline: -0.44em;
 }
+
 sup.md-footnote:not(.md-expand):before {
   content: "［";
 }
+
 sup.md-footnote:not(.md-expand):after {
   content: "］";
 }
@@ -646,11 +783,13 @@ sup.md-footnote:not(.md-expand):after {
 #write ul {
   list-style: disc;
 }
+
 #write ul ul {
   /*list-style: circle;*/
   /* 请勿删除“–”后的空格, 他们对缩进有一定影响, 下同 */
   list-style: "–   ";
 }
+
 #write ul ul ul {
   list-style: "◦  ";
 }
@@ -659,29 +798,35 @@ sup.md-footnote:not(.md-expand):after {
 #write ol {
   list-style: decimal;
 }
+
 #write ol ol {
   counter-reset: liist;
   list-style: none;
 }
-#write ol ol > li {
+
+#write ol ol>li {
   counter-increment: liist;
   position: relative;
 }
-#write ol ol > li::before {
+
+#write ol ol>li::before {
   content: "(" counter(liist, lower-alpha) ")";
   position: absolute;
   left: -1.8em;
 }
+
 #write ol ol ol {
   counter-reset: liiist;
   list-style: none;
   margin: 0;
 }
-#write ol ol ol > li {
+
+#write ol ol ol>li {
   counter-increment: liiist;
   position: relative;
 }
-#write ol ol ol > li::before {
+
+#write ol ol ol>li::before {
   content: counter(liiist, lower-roman) ".";
   align-self: flex-end;
   position: absolute;
@@ -702,16 +847,17 @@ sup.md-footnote:not(.md-expand):after {
 #write li {
   position: relative;
 }
-#write li + li,
-#write ul + ol > li,
-#write ol + ul > li,
-#write li > ul > li,
-#write li > ol > li {
+
+#write li+li,
+#write ul+ol>li,
+#write ol+ul>li,
+#write li>ul>li,
+#write li>ol>li {
   margin-top: -0.8em;
 }
 
 /* task列表 */
-.md-task-list-item > input {
+.md-task-list-item>input {
   margin-top: 0.42em;
   margin-left: -1.5em;
   width: 1em !important;
@@ -733,15 +879,19 @@ sup.md-footnote:not(.md-expand):after {
   /* 使表格默认居中；虽然这个代码不好，但好像没别的实现办法 */
   margin: 0 auto;
 }
+
 #write table td {
   padding: 2px;
 }
+
 #write table tr {
   padding: 2px;
 }
+
 #write th {
   padding: 0px 6px;
 }
+
 #write thead {
   /* 表格标题（首行）样式 */
   /* 三线表表头的线 */
@@ -776,7 +926,12 @@ code {
   font-family: var(--code-font), var(--ui-font), monospace;
 }
 
-h1 code, h2 code, h3 code, h4 code, h5 code, h6 code,
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code,
 p code,
 li code {
   color: rgb(60, 112, 198);
@@ -845,42 +1000,51 @@ li code {
   display: var(--toc-show-title);
   counter-set: toc-h2 0 toc-h3 0 toc-h4 0 toc-h5 0 toc-h6 0;
 }
+
 .md-toc-content .md-toc-h2 {
   counter-set: toc-h3 0 toc-h4 0 toc-h5 0 toc-h6 0;
 }
+
 .md-toc-content .md-toc-h3 {
   counter-set: toc-h4 0 toc-h5 0 toc-h6 0;
 }
+
 .md-toc-content .md-toc-h4 {
   counter-set: toc-h5 0 toc-h6 0;
 }
+
 .md-toc-content .md-toc-h5 {
   counter-set: toc-h6 0;
 }
+
 .md-toc-content .md-toc-h2:before {
   counter-increment: toc-h2;
   content: counter(toc-h2);
   margin-right: 1em;
   font-weight: var(--strong-weight);
 }
+
 .md-toc-content .md-toc-h3:before {
   counter-increment: toc-h3;
   content: counter(toc-h2) "." counter(toc-h3);
   margin-left: 1.5em;
   margin-right: 0.5em;
 }
+
 .md-toc-content .md-toc-h4:before {
   counter-increment: toc-h4;
   content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4);
   margin-left: 3.5em;
   margin-right: 0.5em;
 }
+
 .md-toc-content .md-toc-h5:before {
   counter-increment: toc-h5;
   content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) "." counter(toc-h5);
   margin-left: 5.5em;
   margin-right: 0.5em;
 }
+
 .md-toc-content .md-toc-h6:before {
   counter-increment: toc-h6;
   content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) "." counter(toc-h5) "." counter(toc-h6);
@@ -892,6 +1056,14 @@ li code {
 </style><title>README</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='mathmodelagent自动部署脚本-readme'><a href='https://github.com/jihe520/MathModelAgent'><span>MathModelAgent</span></a><span>自动部署脚本 README</span></h1><h2 id='本次更新'><span>本次更新</span></h2><p><span>新增 </span><code>start_mma.bat</code><span> 和 </span><code>start_mma_all_windows.bat</code><span> 启动脚本。</span></p><h2 id='脚本介绍'><span>脚本介绍</span></h2><h3 id='批处理脚本autosetuprunbat'><span>批处理脚本：auto_setup_run.bat</span></h3><p><strong><span>这是啥？</span></strong><span></span><br/><span>Windows 懒人专属！自动检查 Python、Node.js、Redis，缺啥下啥，配置环境变量，启动 MathModelAgent 全家桶，简单粗暴！</span></p><p><strong><span>咋用？</span></strong><span>  </span></p><ol start='' ><li><p><span>双击 </span><code>auto_setup_run.bat</code><span>。  </span></p></li><li><p><span>脚本检查 Python（需 3.8+）。  </span></p></li><li><p><span>缺 Node.js？自动下载 v20.17.0 到 </span><code>nodejs-portable</code><span>。  </span></p></li><li><p><span>缺 Redis？自动下载 v5.0.14.1 到 </span><code>redis-portable</code><span>。  </span></p></li><li><p><span>自动配置 </span><code>backend/.env.dev</code><span> 和 </span><code>frontend/.env</code><span>（需手动填 API key 和 model）。  </span></p></li><li><p><span>启动 Redis、后端（</span><code>http://localhost:8000</code><span>）、前端（</span><code>http://localhost:5173</code><span>），弹出三个窗口。  </span></p></li><li><p><span>想停？关闭 “Redis Server”、“Backend Server”、“Frontend Server” 窗口。</span></p></li></ol><h3 id='批处理脚本startmmabat'><span>批处理脚本：start_mma.bat</span></h3><p><strong><span>这是啥？</span></strong><span></span><br/><span>Windows 简易启动脚本，适合已配置好环境的用户，直接启动前端和后端。</span></p><p><strong><span>咋用？</span></strong><span>  </span></p><ol start='' ><li><p><span>确保 Python、Node.js、pnpm、Redis 已安装，</span><code>backend/.env.dev</code><span> 和 </span><code>frontend/.env</code><span> 已配置。  </span></p></li><li><p><span>双击 </span><code>start_mma.bat</code><span>。  </span></p></li><li><p><span>启动后端（</span><code>http://localhost:8000</code><span>）和前端（</span><code>http://localhost:5173</code><span>），需手动启动 Redis。  </span></p></li><li><p><span>关闭窗口停止服务。</span></p></li></ol><h3 id='批处理脚本startmmaallwindowsbat'><span>批处理脚本：start_mma_all_windows.bat</span></h3><p><strong><span>这是啥？</span></strong><span></span><br/><span>Windows 批处理启动脚本，适合已安装 Node.js 的用户，自动启动 Redis、前端、后端，弹出三个窗口，操作直观！</span></p><p><strong><span>咋用？</span></strong><span>  </span></p><ol start='' ><li><p><span>确保 Python（3.8+）、Node.js、pnpm 已安装，Redis 放在 </span><code>redis-portable</code><span>。  </span></p></li><li><p><span>双击 </span><code>start_mma_all_windows.bat</code><span>。  </span></p></li><li><p><span>自动配置环境变量，安装依赖，启动 Redis、后端（</span><code>http://localhost:8000</code><span>）、前端（</span><code>http://localhost:5173</code><span>）。  </span></p></li><li><p><span>关闭三个窗口停止服务。</span></p></li></ol><h3 id='python-脚本autosetuprunwinpy'><span>Python 脚本：auto_setup_run_win.py</span></h3><p><strong><span>这是啥？</span></strong><span></span><br/><span>Windows 专用 Python 脚本，自动检查环境、安装依赖、动态分配端口，启动 MathModelAgent 系统。</span></p><p><strong><span>咋用？</span></strong><span>  </span></p><ol start='' ><li><p><span>安装 Python（推荐 3.12）、Redis、Node.js、pnpm。  </span></p></li><li><p><span>运行 </span><code>python auto_setup_run_win.py</code><span>。  </span></p></li><li><p><span>弹出对话框选择 Redis 和 Node.js 安装路径（</span><strong><span>非非提醒</span></strong><span>：路径选错脚本会生气！）。  </span></p></li><li><p><span>输入 API key 和 model（如 </span><code>deepseek/deepseek-chat</code><span>）。  </span></p></li><li><p><span>脚本检查 Redis，安装依赖，配置 </span><code>.env</code><span>，启动 Redis、后端（</span><code>http://localhost:8000</code><span> 或动态端口）、前端（</span><code>http://localhost:5173</code><span>）。  </span></p></li><li><p><span>查看日志 </span><code>log/main.log</code><span>，Ctrl+C 安全退出。</span></p></li></ol><h3 id='python-脚本autosetuprunwinandmacpy'><span>Python 脚本：auto_setup_run_win_and_mac.py</span></h3><p><strong><span>这是啥？</span></strong><span></span><br/><span>跨平台 Python 脚本，支持 Windows 和 macOS，功能与 </span><code>auto_setup_run_win.py</code><span> 类似。</span></p><p><strong><span>咋用？</span></strong><span>  </span></p><ol start='' ><li><p><span>安装 Python（推荐 3.12）、Redis、Node.js、pnpm。  </span></p></li><li><p><span>运行 </span><code>python auto_setup_run_win_and_mac.py</code><span>。  </span></p></li><li><p><span>选择 Redis 和 Node.js 路径（macOS 可能在 </span><code>/usr/local/bin</code><span> 或 </span><code>/opt/homebrew/bin</code><span>）。  </span></p></li><li><p><span>输入 API key 和 model。  </span></p></li><li><p><span>启动服务，端口同上，日志查看 </span><code>log/main.log</code><span>。</span></p></li></ol><h2 id='项目输出'><span>项目输出</span></h2><ul><li><p><span>服务启动后，生成文件保存在 </span><code>backend/project/work_dir/xxx/</code><span>：  </span></p><ul><li><p><code>notebook.ipynb</code><span>：生成代码。  </span></p></li><li><p><code>res.md</code><span>：Markdown 格式结果。  </span></p></li><li><p><code>res.docx</code><span>：带图片的 Word 文档。</span></p></li></ul></li></ul><h2 id='视频教程'><span>视频教程</span></h2><ul><li><p><a href='./auto_setup_run[-v bat].mp4'><span>auto_setup_run.bat 教程</span></a></p></li><li><p><a href='./auto_setup_run_win[-v py].mp4'><span>auto_setup_run_win.py 教程</span></a></p></li></ul><h2 id='脚本对比'><span>脚本对比</span></h2><h3 id='启动脚本'><span>启动脚本</span></h3><figure class='table-figure'><table><thead><tr><th><span>特性</span></th><th><span>start_mma.bat</span></th><th><span>start_mma_all_windows.bat</span></th></tr></thead><tbody><tr><td><span>平台</span></td><td><span>Windows</span></td><td><span>Windows</span></td></tr><tr><td><span>功能</span></td><td><span>快速启动前端和后端（需手动配置环境）</span></td><td><span>启动 Redis、前端、后端，自动配置环境</span></td></tr><tr><td><span>使用</span></td><td><span>双击运行</span></td><td><span>双击运行</span></td></tr><tr><td><span>依赖</span></td><td><span>Python（3.12推荐）、Redis、Node.js、pnpm（手动安装）</span></td><td><span>Python（3.8+）、Node.js、pnpm（手动），Redis 放 </span><code>redis-portable</code></td></tr><tr><td><span>路径选择</span></td><td><span>无</span></td><td><span>固定 </span><code>redis-portable</code></td></tr><tr><td><span>亮点</span></td><td><span>轻量快速，窗口化运行</span></td><td><span>自动配置 </span><code>.env</code><span>，三个窗口并行，清华镜像</span></td></tr><tr><td><span>输出</span></td><td><span>前端：</span><code>http://localhost:5173</code><br><span>后端：</span><code>http://localhost:8000</code></td><td><span>同左</span></td></tr><tr><td><span>坑点</span></td><td><span>不检查环境，不启动 Redis，需手动配置</span></td><td><span>需手动装 Node.js，Redis 路径固定</span></td></tr></tbody></table></figure><h3 id='安装配置脚本'><span>安装配置脚本</span></h3><figure class='table-figure'><table><thead><tr><th><span>特性</span></th><th><span>auto_setup_run.bat</span></th><th><span>auto_setup_run_win.py</span></th><th><span>auto_setup_run_win_and_mac.py</span></th></tr></thead><tbody><tr><td><span>平台</span></td><td><span>Windows</span></td><td><span>Windows</span></td><td><span>Windows, macOS</span></td></tr><tr><td><span>功能</span></td><td><span>自动下载依赖、配置并启动系统</span></td><td><span>环境检测、动态端口、配置并启动</span></td><td><span>同 Windows 版，跨平台</span></td></tr><tr><td><span>使用</span></td><td><span>双击运行</span></td><td><code>python auto_setup_run_win.py</code></td><td><code>python auto_setup_run_win_and_mac.py</code></td></tr><tr><td><span>依赖</span></td><td><span>Python（3.8+），自动下 Node.js v20.17.0、Redis 5.0.14.1</span></td><td><span>Python（3.12推荐）、Redis、Node.js、pnpm（手动）</span></td><td><span>同 Windows 版</span></td></tr><tr><td><span>路径选择</span></td><td><span>自动下载到项目目录</span></td><td><span>手动选择</span></td><td><span>手动选择</span></td></tr><tr><td><span>亮点</span></td><td><span>全自动下载、窗口化、清华镜像</span></td><td><span>端口扫描、详细日志、API 验证</span></td><td><span>跨平台、端口扫描、日志</span></td></tr><tr><td><span>输出</span></td><td><span>前端：</span><code>http://localhost:5173</code><br><span>后端：</span><code>http://localhost:8000</code></td><td><span>同左（后端端口可变）</span></td><td><span>同左（后端端口可变）</span></td></tr><tr><td><span>坑点</span></td><td><span>固定版本、需联网</span></td><td><span>需手动装依赖、路径要准</span></td><td><span>macOS 可能有 bug</span></td></tr></tbody></table></figure><h2 id='选择指南'><span>选择指南</span></h2><ul><li><p><strong><span>启动脚本</span></strong><span>：适用于已配置好环境的用户，快速启动系统。  </span></p><ul><li><p><code>start_mma.bat</code><span>：轻量，需手动启动 Redis。  </span></p></li><li><p><code>start_mma_all_windows.bat</code><span>：自动启动 Redis、前端、后端，窗口化操作。  </span></p></li></ul></li><li><p><strong><span>安装配置脚本</span></strong><span>：适用于初次部署或环境不完整的用户，自动安装依赖并配置系统。  </span></p><ul><li><p><code>auto_setup_run.bat</code><span>：全自动下载依赖，适合 Windows 新手。  </span></p></li><li><p><code>auto_setup_run_win.py</code><span>：支持动态端口，详细日志，适合 Windows 进阶用户。  </span></p></li><li><p><code>auto_setup_run_win_and_mac.py</code><span>：跨平台支持，适合 macOS 用户。  </span></p></li></ul></li></ul><h2 id='todo'><span>TODO</span></h2><ul><li><p><span>优化错误提示，添加交互式配置向导。  </span></p></li><li><p><span>完善 macOS 支持，测试 Linux 兼容性。  </span></p></li><li><p><span>Docker 镜像，非非喊你来贡献！  </span></p></li></ul><h2 id='终极提醒'><span>终极提醒</span></h2><ul><li><p><span>路径选错，后果自负！选路径时擦亮眼，特别是 Python 脚本！  </span></p></li><li><p><span>依赖得手动装，别指望脚本啥都干！  </span></p></li><li><p><span>有 bug？改脚本！非非超忙，欢迎 PR！😜  </span></p></li><li><p><span>想用最新版 Node.js 或 Redis？手动安装后用 Python 脚本，灵活又自由！  </span></p></li></ul><p><span>有好点子？快去改脚本，众所周知，非非超渣！😎</span></p></div></div>
+<div id='write'  class=''><h1 id='mathmodelagent-自动部署脚本-readme'><a href='https://github.com/jihe520/MathModelAgent'><span>MathModelAgent</span></a><span> 自动部署脚本 README</span></h1><p><span>欢迎踏上 MathModelAgent 的自动化部署之旅！这篇 README 是你的“通关秘籍”，助你轻松搞定这个数学建模神器的部署。Windows 硬核党、macOS 文艺范儿，这里都有你的专属脚本！非非警告：先读后动手，路径搞错可别怪我！😜</span></p><h2 id='更新日志'><span>更新日志</span></h2><h3 id='新功能'><span>新功能</span></h3><ul><li><p><strong><span>重磅登场：</span><code>auto_setup_run_docker.bat</code><span>！</span></strong><span> 扔进 MathModelAgent 目录，双击启动，Docker 魔法自动搞定！但坑不少，务必啃完 README 再动手！🚨</span></p></li></ul><h3 id='移除autosetuprunwinandmac自动配置脚本因无法验证'><span>移除auto_setup_run_win_and_mac自动配置脚本，因无法验证</span></h3><h2 id='前置条件跳过会后悔'><span>前置条件（跳过会后悔）</span></h2><ul><li><p><strong><span>Docker Desktop</span></strong><span>：必须安装、运行、登录！没 Docker？直接 GG！</span></p></li><li><p><strong><span>用代理</span></strong><span>：偷偷翻墙才顺畅。</span></p></li><li><p><strong><span>镜像源必备</span></strong><span>：配置国内镜像源，避开 VPN 冲突和认证麻烦。</span></p></li><li><p><strong><span>后端的.env.dev对于doker有特定配置</span></strong></p></li></ul><p><strong><span>非非提醒</span></strong><span>：尽管</span><code>auto_setup_run_docker.bat</code><span> 会尝试配置镜像源，但可能需手动在 Docker Engine 界面点 </span><code>Apply &amp; Restart</code><span> 生效。</span></p><h2 id='推荐部署流程正确姿势'><span>推荐部署流程（正确姿势）</span></h2><p><strong><span>参考资料（学霸笔记）：</span></strong></p><ul><li><p><a href='https://docs.docker.com/desktop/setup/install/windows-install/'><span>Windows | Docker Docs</span></a></p></li><li><p><a href='https://cloud.tencent.com/developer/article/2414097'><span>如何优雅的变更 Docker Desktop 的镜像存储路径 - 腾讯云开发者社区</span></a></p></li><li><p><a href='https://blog.csdn.net/hx2019626/article/details/145140014'><span>新版本 Docker Desktop 自定义安装路径和下载镜像地址路径修改</span></a></p></li></ul><p><span>为了丝滑部署，照着这几步走：</span></p><ol start='' ><li><p><strong><span>安装 Docker Desktop</span></strong><span>：</span></p><ul><li><p><span>指定安装和资源路径，避免默认塞满 C 盘。示例命令（路径可自定）：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 6.72186px; left: 30px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 17px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">start</span> /w <span class="cm-string">""</span> <span class="cm-string">"Docker Desktop Installer.exe"</span> install <span class="cm-attribute">--accept-license</span> <span class="cm-attribute">--installation-dir</span><span class="cm-operator">=</span><span class="cm-string">"E:\Docker\Docker"</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 36px;"></div><div class="CodeMirror-gutters" style="height: 36px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 25px;"></div></div></div></div></pre></li><li><p><span>在 Docker Desktop 的 </span><code>设置 &gt; 资源</code><span> 里配置存储路径，省空间又省心：</span>
+<img src="./assets/docker%20resources.png" referrerpolicy="no-referrer" alt="Docker 资源设置"></p></li></ul></li><li><p><strong><span>配置镜像源</span></strong><span>：</span></p><ul><li><p><span>用下面</span><code>daemon.json</code><span> 配置国内镜像源，加速拉取镜像。直接改 </span><code>%USERPROFILE%\.docker\daemon.json</code><span> 或在 Docker 的 </span><code>设置 &gt; Docker Engine</code><span> 贴上这神级配置：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="python" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="python"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 7.04375px; left: 36px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 32px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>17</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -32px; width: 32px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-string">"builder"</span>: {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"gc"</span>: {</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-string">"defaultKeepStorage"</span>: <span class="cm-string">"20GB"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-string">"enabled"</span>: <span class="cm-variable">true</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  },</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-string">"experimental"</span>: <span class="cm-variable">false</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-string">"registry-mirrors"</span>: [</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://docker.1ms.run"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://docker.xuanyuan.me"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://hub.rat.dev"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://dislabaiot.xyz"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://doublezonline.cloud"</span>,</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"https://xdark.top"</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  ]</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 307px;"></div><div class="CodeMirror-gutters" style="height: 307px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 31px;"></div></div></div></div></pre><p>&nbsp;</p><p><img src="./assets/doker%20engine.png" referrerpolicy="no-referrer" alt="Docker Engine 设置界面"></p></li></ul></li><li><p><strong><span>运行自动部署脚本</span></strong><span>：</span></p><ul><li><p><span>将 </span><code>auto_setup_run_docker.bat</code><span> 放入 MathModelAgent 目录，双击运行。脚本会：</span></p><ul><li><p><span>检查 Docker 是否正常运行。</span></p></li><li><p><span>配置镜像源。</span></p></li><li><p><span>设置环境变量。</span></p></li><li><p><span>启动 Docker Compose，点燃全场！</span></p></li></ul></li></ul><p><strong><span>示例输出</span></strong><span>（感受这气势）：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 7.04375px; left: 36px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 32px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>21</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -32px; width: 32px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Checking if Docker is installed and running...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Docker version 28.1.1, build 4eba377</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">3</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Verifying project directory...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">4</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Configuring Docker registry mirror...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">5</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">daemon.json already exists. Please ensure it contains valid registry mirrors</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">6</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Configuring environment variables...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">7</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Starting Docker Compose services...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">8</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[+] Building 1028.6s (27/27) FINISHED</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">9</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">...</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">10</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[+] Running 8/8</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">11</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ backend Built</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">12</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ frontend Built</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">13</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Network mathmodelagent_default Created</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">14</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Volume "mathmodelagent_redis_data" Created</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">15</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Volume "mathmodelagent_backend_venv" Created</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">16</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Container mathmodelagent_redis Started</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">17</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Container mathmodelagent_backend Started</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">18</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ✔ Container mathmodelagent_frontend Started</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt" style="left: 0px; width: 23px;">19</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Services started successfully</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">20</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Frontend: http://localhost:5173</span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -32px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 23px;">21</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Backend API: http://localhost:8000</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 380px;"></div><div class="CodeMirror-gutters" style="height: 380px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 31px;"></div></div></div></div></pre><p><span>关闭上述cmd窗口。</span></p><blockquote><p><strong><span>非非警告</span></strong><span>：构建可能慢如乌龟（示例里用了 1028.6 秒！后续非非又试了试基本每次5-8min）。网速差？换个更快镜像源，飞起来！</span></p></blockquote></li><li><p><span>修改后端配置文件样式如下（示例apikey和model）</span>
+<img src="./assets/docker%20env%20dev%E9%85%8D%E7%BD%AE.png" referrerpolicy="no-referrer" alt="docker env dev配置"></p></li><li><p><span>修改后端配置文件后再运行上述 bat 脚本，ctrl + 点击 访问前端，即可食用。</span></p></li></ol><h2 id='常见错误别踩坑'><span>常见错误（别踩坑）</span></h2><p><strong><span>错误做法</span></strong><span>：直接双击 </span><code>Docker Desktop Installer.exe</code><span> 默认安装。</span></p><ul><li><p><strong><span>问题</span></strong><span>：</span></p><ul><li><p><span>默认安装会把 Docker 核心文件和镜像塞到 </span><code>%USERPROFILE%\AppData\Local\Docker\wsl\</code><span>，C 盘空间吃紧！</span></p></li><li><p><span>没配置镜像源，拉取镜像慢如蜗牛，甚至超时失败。</span></p></li></ul></li><li><p><strong><span>解决办法</span></strong><span>：按“推荐部署流程”走，指定安装路径、配置镜像源，省心又高效。</span></p></li></ul><h2 id='资源管理救硬盘于水火'><span>资源管理（救硬盘于水火）</span></h2><ul><li><p><strong><span>存储黑洞</span></strong><span>：部署约占 14GB，Docker 文件和镜像默认在 </span><code>%USERPROFILE%\AppData\Local\Docker\wsl\</code><span>。</span>
+<img src="./assets/space.png" referrerpolicy="no-referrer" alt="存储空间占用"></p></li></ul><p><span>如果你很不幸直接双击docker安装文件安装了docker，可以尝试以下方式释放空间...</span></p><ul><li><p><strong><span>大扫除</span></strong><span>：硬盘告急？用这俩命令清理：</span></p><pre class="md-fences md-end-block md-fences-with-lineno ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 7.04375px; left: 30px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 26px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre><div class="CodeMirror-linenumber CodeMirror-gutter-elt"><div>2</div></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: -26px; width: 26px;"></div><div class="CodeMirror-gutter-wrapper CodeMirror-activeline-gutter" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 17px;">1</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">docker system prune <span class="cm-attribute">-a</span></span></pre></div><div style="position: relative;"><div class="CodeMirror-gutter-wrapper" style="left: -26px;"><div class="CodeMirror-linenumber CodeMirror-gutter-elt CodeMirror-linenumber-show" style="left: 0px; width: 17px;">2</div></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">docker volume prune</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 36px;"></div><div class="CodeMirror-gutters" style="height: 36px;"><div class="CodeMirror-gutter CodeMirror-linenumbers" style="width: 25px;"></div></div></div></div></pre></li><li><p><strong><span>存储优化</span></strong><span>：</span></p><ol start='' ><li><p><span>在 Docker Desktop 的 </span><code>设置 &gt; 资源</code><span> 改存储路径。</span></p></li><li><p><span>高级玩法：重启电脑后跑 </span><a href='./收录脚本/DockerSetup.ps1'><span>DockerSetup.ps1</span></a><span>，用符号链接挪存储路径（但回滚麻烦，谨慎操作）。</span></p></li></ol></li></ul><h2 id='脚本介绍你的懒人神器'><span>脚本介绍（你的懒人神器）</span></h2><h3 id='批处理脚本autosetuprundockerbat'><span>批处理脚本：</span><code>auto_setup_run_docker.bat</code></h3><p><strong><span>这是啥？</span></strong>
+<span>Docker 爱好者的福音！Windows 专属，自动检查 Docker、配镜像源、调环境变量、启动全家桶。一键起飞，省心到爆！</span></p><p><strong><span>咋用？</span></strong></p><ol start='' ><li><p><span>把脚本丢进 MathModelAgent 目录，双击开跑。</span></p></li><li><p><span>脚本确认 Docker 活着没，死了就让你去装。</span></p></li><li><p><span>自动配镜像源（若 </span><code>daemon.json</code><span> 没配好，会帮你搞定）。</span></p></li><li><p><span>复制 </span><code>backend/.env.dev.example</code><span> 和 </span><code>frontend/.env.example</code><span> 到对应 </span><code>.env</code><span> 文件（记得手动填 API key 和 model，修改docker的redis配置）。</span></p></li><li><p><span>启动 Docker Compose，点亮前端（</span><code>http://localhost:5173</code><span>）和后端（</span><code>http://localhost:8000</code><span>）。</span></p></li><li><p><span>出错？跑 </span><code>docker-compose logs</code><span> 查原因。</span></p></li><li><p><span>想停？按任意键退出，优雅下线。</span></p></li></ol><h3 id='批处理脚本autosetuprunbat'><span>批处理脚本：</span><code>auto_setup_run.bat</code></h3><p><strong><span>这是啥？</span></strong>
+<span>Windows 懒人神器！自动检查 Python、Node.js、Redis，缺啥装啥，配好环境变量，启动 MathModelAgent 全家桶，简单又暴力！</span></p><p><strong><span>咋用？</span></strong></p><ol start='' ><li><p><span>双击 </span><code>auto_setup_run.bat</code><span>，坐等魔法。</span></p></li><li><p><span>检查 Python（要 3.8+），没有就催你去装。</span></p></li><li><p><span>没 Node.js？自动下 v20.17.0 到 </span><code>nodejs-portable</code><span>.</span></p></li><li><p><span>缺 Redis？自动拉 v5.0.14.1 到 </span><code>redis-portable</code><span>.</span></p></li><li><p><span>配置 </span><code>backend/.env.dev</code><span> 和 </span><code>frontend/.env</code><span>（API key 和 model 得你手填）。</span></p></li><li><p><span>启动 Redis、后端（</span><code>http://localhost:8000</code><span>）、前端（</span><code>http://localhost:5173</code><span>），弹出仨窗口。</span></p></li><li><p><span>想停？关掉 “Redis Server”、“Backend Server”、“Frontend Server” 窗口。</span></p></li></ol><h3 id='批处理脚本startmmabat'><span>批处理脚本：</span><code>start_mma.bat</code></h3><p><strong><span>这是啥？</span></strong>
+<span>Windows 极简启动脚本，专为环境已配好的大佬设计（需要是本地配置，而不是docker），点一下就跑前端后端，干净利落！</span></p><p><strong><span>咋用？</span></strong></p><ol start='' ><li><p><span>确保 Python、Node.js、pnpm、Redis 都装好，</span><code>backend/.env.dev</code><span> 和 </span><code>frontend/.env</code><span> 也配齐。</span></p></li><li><p><span>双击 </span><code>start_mma.bat</code><span>。</span></p></li><li><p><span>启动后端（</span><code>http://localhost:8000</code><span>）和前端（</span><code>http://localhost:5173</code><span>）。Redis 得你自己手动开。</span></p></li><li><p><span>关窗口停服务，简单粗暴。</span></p></li></ol><h3 id='批处理脚本startmmaallwindowsbat'><span>批处理脚本：</span><code>start_mma_all_windows.bat</code></h3><p><strong><span>这是啥？</span></strong>
+<span>Windows 批处理全家桶启动器（需要是本地配置，而不是docker），适合 Node.js 已就位的玩家。自动开 Redis、前端、后端，仨窗口齐飞，操作爽到爆！</span></p><p><strong><span>咋用？</span></strong></p><ol start='' ><li><p><span>确保 Python（3.8+）、Node.js、pnpm 装好，Redis 扔在 </span><code>redis-portable</code><span>。</span></p></li><li><p><span>双击 </span><code>start_mma_all_windows.bat</code><span>。</span></p></li><li><p><span>自动配环境变量，装依赖，启动 Redis、后端（</span><code>http://localhost:8000</code><span>）、前端（</span><code>http://localhost:5173</code><span>）。</span></p></li></ol><h3 id='python-脚本autosetuprunwinpy'><span>Python 脚本：</span><code>auto_setup_run_win.py</code></h3><p><strong><span>这是啥？</span></strong>
+<span>Windows 专属 Python 脚本，智能检查环境、装依赖、动态分配端口，启动 MathModelAgent 像开挂一样顺！</span></p><p><strong><span>咋用？</span></strong></p><ol start='' ><li><p><span>装好 Python（推荐 3.12）、Redis、Node.js、pnpm。</span></p></li><li><p><span>跑 </span><code>python auto_setup_run_win.py</code><span>。</span></p></li><li><p><span>弹出对话框让你选 Redis 和 Node.js 路径（</span><strong><span>非非警告</span></strong><span>：选错路径，脚本会翻脸！）。</span></p></li><li><p><span>脚本检查 Redis，装依赖，配 </span><code>.env</code><span>，启动 Redis、后端（</span><code>http://localhost:8000</code><span> 或动态端口）、前端（</span><code>http://localhost:5173</code><span>）。</span></p></li><li><p><span>日志在 </span><code>log/main.log</code><span>，Ctrl+C 优雅退出。</span></p></li></ol><h2 id='项目输出你的劳动成果'><span>项目输出（你的劳动成果）</span></h2><p><span>服务跑起来后，成果文件都乖乖躺在 </span><code>backend/project/work_dir/xxx/</code><span>：</span></p><ul><li><p><code>notebook.ipynb</code><span>：代码神器，拿去跑模型！</span></p></li><li><p><code>res.md</code><span>：Markdown 格式结果，简洁又好看。</span></p></li><li><p><code>res.docx</code><span>：带图的 Word 文档，装逼必备！</span></p></li></ul><h2 id='脚本对比选对工具事半功倍'><span>脚本对比（选对工具，事半功倍）</span></h2><h3 id='启动脚本'><span>启动脚本</span></h3><figure class='table-figure'><table><thead><tr><th><span>特性</span></th><th><span>start_mma.bat</span></th><th><span>start_mma_all_windows.bat</span></th></tr></thead><tbody><tr><td><span>平台</span></td><td><span>Windows</span></td><td><span>Windows</span></td></tr><tr><td><span>功能</span></td><td><span>快速启动前端和后端（需手动配环境）</span></td><td><span>启动 Redis、前端、后端，自动配环境</span></td></tr><tr><td><span>使用</span></td><td><span>双击运行</span></td><td><span>双击运行</span></td></tr><tr><td><span>依赖</span></td><td><span>Python（3.12推荐）、Redis、Node.js、pnpm（手动装）</span></td><td><span>Python（3.8+）、Node.js、pnpm（手动），Redis 放 </span><code>redis-portable</code></td></tr><tr><td><span>路径选择</span></td><td><span>无</span></td><td><span>固定 </span><code>redis-portable</code></td></tr><tr><td><span>亮点</span></td><td><span>轻量快速，窗口化运行</span></td><td><span>自动配 </span><code>.env</code><span>，仨窗口并行，清华镜像加速</span></td></tr><tr><td><span>输出</span></td><td><span>前端：</span><code>http://localhost:5173</code><br><span>后端：</span><code>http://localhost:8000</code></td><td><span>同左</span></td></tr><tr><td><span>坑点</span></td><td><span>不检查环境，Redis 得手动开</span></td><td><span>需手动装 Node.js，Redis 路径固定</span></td></tr></tbody></table></figure><h3 id='安装配置脚本'><span>安装配置脚本</span></h3><figure class='table-figure'><table><thead><tr><th><span>特性</span></th><th><span>auto_setup_run.bat</span></th><th><span>auto_setup_run_docker.bat</span></th><th><span>auto_setup_run_win.py</span></th></tr></thead><tbody><tr><td><span>平台</span></td><td><span>Windows</span></td><td><span>Windows</span></td><td><span>Windows</span></td></tr><tr><td><span>功能</span></td><td><span>自动下载依赖、配置并启动系统</span></td><td><span>检查 Docker、配镜像源、启动 Docker Compose</span></td><td><span>环境检测、动态端口、配置并启动</span></td></tr><tr><td><span>使用</span></td><td><span>双击运行</span></td><td><span>双击运行</span></td><td><code>python auto_setup_run_win.py</code></td></tr><tr><td><span>依赖</span></td><td><span>Python（3.8+），自动下 Node.js v20.17.0、Redis 5.0.14.1</span></td><td><span>Docker Desktop</span></td><td><span>Python（3.12推荐）、Redis、Node.js、pnpm（手动）</span></td></tr><tr><td><span>路径选择</span></td><td><span>自动下载到项目目录</span></td><td><span>无（需 docker-compose.yml）</span></td><td><span>手动选择</span></td></tr><tr><td><span>亮点</span></td><td><span>全自动下载、窗口化、清华镜像</span></td><td><span>Docker 一键部署，镜像源加速</span></td><td><span>端口扫描、详细日志、API 验证</span></td></tr><tr><td><span>输出</span></td><td><span>前端：</span><code>http://localhost:5173</code><br><span>后端：</span><code>http://localhost:8000</code></td><td><span>同左</span></td><td><span>同左（后端端口可变）</span></td></tr><tr><td><span>坑点</span></td><td><span>固定版本、需联网</span></td><td><span>Docker 需预装，网络慢会卡</span></td><td><span>需手动装依赖、路径要准</span></td></tr></tbody></table></figure><h2 id='选择指南别选错浪费感情'><span>选择指南（别选错，浪费感情）</span></h2><p><strong><span>安装配置脚本</span></strong><span>：新手或环境不全？选这些！</span></p><ul><li><p><code>auto_setup_run.bat</code><span>：全自动下载，Windows 小白的最爱。</span></p></li><li><p><code>auto_setup_run_docker.bat</code><span>：Docker 党专属，一键部署，省心省力。</span></p></li><li><p><code>auto_setup_run_win.py</code><span>：动态端口+详细日志，Windows 进阶玩家的菜。</span></p></li></ul><p><strong><span>启动脚本</span></strong><span>：环境已就绪？直接开跑！</span></p><ul><li><p><code>start_mma.bat</code><span>：轻量如羽，Redis 得你自己搞。</span></p></li><li><p><code>start_mma_all_windows.bat</code><span>：Redis、前端、后端全自动。配合</span><code>auto_setup_run.bat</code><span>使用。</span></p></li></ul><h2 id='终极提醒不听后悔'><span>终极提醒（不听后悔）</span></h2><p><span>有好点子？快改脚本！遇到 bug？改脚本吧！众所周知，非非超渣！😎</span></p></div></div>
 </body>
 </html>

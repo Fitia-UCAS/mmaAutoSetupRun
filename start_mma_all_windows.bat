@@ -14,9 +14,9 @@ if not exist .\backend\.env.dev (
   pause
 )
 
-if not exist .\frontend\.env (
+if not exist .\frontend\.env.development (
   echo Frontend config not found. Copying example config...
-  copy .\frontend\.env.example .\frontend\.env
+  copy .\frontend\.env.example .\frontend\.env.development
   pause
 )
 

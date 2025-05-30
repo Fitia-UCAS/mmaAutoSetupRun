@@ -159,8 +159,9 @@ def check_redis(redis_path: str) -> bool:
 # 配置后端和前端环境文件
 def configure_env_files(project_root: Path):
     backend_env = project_root / "backend" / ".env.dev"
-    frontend_env = project_root / "frontend" / ".env"
+    frontend_env = project_root / "frontend" / ".env.development"
     backend_env_example = project_root / "backend" / ".env.dev.example"
+    frontend_env_example = project_root / "frontend" / ".env.example"
 
     # 处理 backend .env.dev 创建或更新
     if not backend_env.exists():
@@ -205,12 +206,18 @@ def configure_env_files(project_root: Path):
                 logger.error("Required variables are missing. Exiting.")
                 sys.exit(1)
 
-    # 配置前端 .env
+    # 配置前端 .env.development
     if not frontend_env.exists():
-        with frontend_env.open("w") as f:
-            f.write("VITE_API_BASE_URL=http://localhost:8000\n")
-            f.write("VITE_WS_URL=ws://localhost:8000\n")
-        logger.info(f"Created new {frontend_env}")
+        if frontend_env_example.exists():
+            shutil.copy(frontend_env_example, frontend_env)
+            logger.info(f"Created {frontend_env} from {frontend_env_example}")
+        else:
+            logger.error(
+                f"Frontend .env.example not found at {frontend_env_example}. Cannot create .env.development."
+            )
+            sys.exit(1)
+    else:
+        logger.info(f"Frontend .env.development already exists at {frontend_env}")
 
 
 # 使用 uv 安装后端依赖并设置虚拟环境
@@ -432,6 +439,11 @@ def run_backend(project_root: Path, port: int) -> subprocess.Popen:
         )
         venv_python = sys.executable
 
+    # 加载 backend/.env.dev 文件中的环境变量
+    env_path = backend_dir / ".env.dev"
+    load_dotenv(dotenv_path=env_path, override=True)
+    logger.info(f"REDIS_URL set to {os.getenv('REDIS_URL')}")  # 验证 REDIS_URL 是否正确加载
+
     env = os.environ.copy()
     env["ENV"] = "DEV"
 
@@ -587,7 +599,7 @@ def main():
         logger.error(f"Failed to select port: {e}")
         sys.exit(1)
 
-    frontend_env = project_root / "frontend" / ".env"
+    frontend_env = project_root / "frontend" / ".env.development"
     set_key(
         frontend_env,
         "VITE_API_BASE_URL",
@@ -596,7 +608,7 @@ def main():
     )
     set_key(frontend_env, "VITE_WS_URL", f"ws://localhost:{port}", quote_mode="never")
     logger.info(
-        f"Updated frontend .env: VITE_API_BASE_URL=http://localhost:{port} and VITE_WS_URL=ws://localhost:{port}"
+        f"Updated frontend .env.development: VITE_API_BASE_URL=http://localhost:{port} and VITE_WS_URL=ws://localhost:{port}"
     )
 
     logger.info("Installing frontend dependencies...")
