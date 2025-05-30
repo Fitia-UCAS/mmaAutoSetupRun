@@ -24,6 +24,20 @@ for lib in required_libraries:
 from dotenv import load_dotenv, set_key
 import psutil
 
+# 定义 backend/.env.dev 中必需的变量
+required_vars = [
+    "COORDINATOR_API_KEY",
+    "COORDINATOR_MODEL",
+    "MODELER_API_KEY",
+    "MODELER_MODEL",
+    "CODER_API_KEY",
+    "CODER_MODEL",
+    "WRITER_API_KEY",
+    "WRITER_MODEL",
+    "DEFAULT_API_KEY",
+    "DEFAULT_MODEL",
+]
+
 # 配置项目路径和日志
 project_root = Path.cwd()
 log_dir = project_root / "log"
@@ -32,7 +46,9 @@ log_file = log_dir / "main.log"
 
 file_handler = logging.FileHandler(log_file, encoding="utf-8", mode="w")
 file_handler.setLevel(logging.DEBUG)
-file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s - [%(filename)s:%(lineno)d]")
+file_formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s - [%(filename)s:%(lineno)d]"
+)
 file_handler.setFormatter(file_formatter)
 
 console_handler = logging.StreamHandler()
@@ -106,7 +122,10 @@ def start_redis(redis_path: str) -> bool:
     for attempt in range(3):
         logger.info(f"Attempt {attempt + 1}: Starting Redis server: {redis_server}")
         try:
-            redis_process = subprocess.Popen([str(redis_server)])
+            redis_process = subprocess.Popen(
+                [str(redis_server)],
+                creationflags=subprocess.CREATE_NEW_CONSOLE if is_windows else 0
+            )
             time.sleep(1.5)  # 等待 Redis 初始化
             if check_redis(redis_path):
                 logger.info("Redis started successfully")
@@ -121,9 +140,12 @@ def start_redis(redis_path: str) -> bool:
 def check_redis(redis_path: str) -> bool:
     redis_cli = Path(redis_path) / ("redis-cli.exe" if is_windows else "redis-cli")
     if not redis_cli.exists():
-        logger.error(f"Redis CLI not found at {redis_cli}. Please ensure Redis is installed correctly.")
+        logger.error(
+            f"Redis CLI not found at {redis_cli}. Please ensure Redis is installed correctly."
+        )
         messagebox.showerror(
-            "Error", f"Redis CLI not found at {redis_cli}. Please install Redis or update the REDIS_PATH in .env."
+            "Error",
+            f"Redis CLI not found at {redis_cli}. Please install Redis or update the REDIS_PATH in .env.",
         )
         return False
 
@@ -146,56 +168,50 @@ def configure_env_files(project_root: Path):
     frontend_env = project_root / "frontend" / ".env"
     backend_env_example = project_root / "backend" / ".env.dev.example"
 
-    if backend_env_example.exists():
-        if not backend_env.exists():
+    # 处理 backend .env.dev 创建或更新
+    if not backend_env.exists():
+        if backend_env_example.exists():
             shutil.copy(backend_env_example, backend_env)
             logger.info(f"Created {backend_env} from {backend_env_example}")
         else:
-            load_dotenv(dotenv_path=backend_env)
-            existing_api_key = os.getenv("API_KEY", "").strip()
-            existing_model = os.getenv("MODEL", "").strip()
-            shutil.copy(backend_env_example, backend_env)
-            logger.info(f"Updated {backend_env} from {backend_env_example}")
-            if existing_api_key:
-                set_key(backend_env, "API_KEY", existing_api_key, quote_mode="never")
-                logger.info(f"Preserved existing API_KEY in {backend_env}")
-            if existing_model:
-                set_key(backend_env, "MODEL", existing_model, quote_mode="never")
-                logger.info(f"Preserved existing MODEL in {backend_env}")
-    else:
-        if not backend_env.exists():
             with backend_env.open("w") as f:
-                f.write("API_KEY=\nMODEL=\n")
-            logger.info(f"Created new {backend_env}")
+                f.write("# Please set the following required variables\n")
+                for var in required_vars:
+                    f.write(f"{var}=\n")
+                f.write("\n# Optional variables with defaults\n")
+                f.write("MAX_CHAT_TURNS=60\n")
+                f.write("MAX_RETRIES=5\n")
+                f.write("SERVER_HOST=http://localhost:8000\n")
+                f.write("LOG_LEVEL=DEBUG\n")
+                f.write("DEBUG=true\n")
+                f.write("REDIS_URL=redis://localhost:6379/0\n")
+                f.write("REDIS_MAX_CONNECTIONS=20\n")
+                f.write("CORS_ALLOW_ORIGINS=http://localhost:5173,http://localhost:3000\n")
+            logger.info(f"Created new {backend_env} with placeholders")
+    else:
+        logger.info(f"Backend .env already exists at {backend_env}")
+
+    # 提示用户编辑 .env.dev 并设置必需变量
+    logger.info(
+        f"Please edit {backend_env} and set the required variables: {', '.join(required_vars)}"
+    )
+    while True:
+        input("Press Enter when you have finished editing.")
+        load_dotenv(dotenv_path=backend_env, override=True)
+        missing_vars = [var for var in required_vars if not os.getenv(var, "").strip()]
+        if not missing_vars:
+            logger.info("All required variables are set. Proceeding.")
+            break
         else:
-            logger.info(f"Backend .env already exists at {backend_env}")
+            logger.error(
+                f"The following required variables are missing or empty: {', '.join(missing_vars)}"
+            )
+            response = input("Do you want to edit the file again? (Y/N): ").strip().upper()
+            if response != "Y":
+                logger.error("Required variables are missing. Exiting.")
+                sys.exit(1)
 
-    load_dotenv(dotenv_path=backend_env)
-
-    def remove_quotes(value: str) -> str:
-        return value.strip("'\"")
-
-    api_key = remove_quotes(os.getenv("API_KEY", "")).strip()
-    model = remove_quotes(os.getenv("MODEL", "")).strip()
-
-    while not api_key:
-        api_key_input = input("Please enter API_KEY without quotes: ").strip("'\" ").strip()
-        if api_key_input:
-            set_key(backend_env, "API_KEY", api_key_input, quote_mode="never")
-            logger.info(f"Set API_KEY to {api_key_input} in {backend_env}")
-            api_key = api_key_input
-        else:
-            logger.warning("API_KEY is required and cannot be empty. Please try again.")
-
-    while not model:
-        model_input = input("Please enter MODEL without quotes (e.g., deepseek/deepseek-chat): ").strip("'\" ").strip()
-        if model_input:
-            set_key(backend_env, "MODEL", model_input, quote_mode="never")
-            logger.info(f"Set MODEL to {model_input} in {backend_env}")
-            model = model_input
-        else:
-            logger.warning("MODEL is required and cannot be empty. Please try again.")
-
+    # 配置前端 .env
     if not frontend_env.exists():
         with frontend_env.open("w") as f:
             f.write("VITE_API_BASE_URL=http://localhost:8000\n")
@@ -219,7 +235,9 @@ def install_backend_dependencies(project_root: Path):
         )
         if result.returncode != 0 or not uv_path.exists():
             logger.error(f"Failed to install uv: {result.stderr}")
-            messagebox.showerror("Error", "Failed to install uv package manager. Please install it manually.")
+            messagebox.showerror(
+                "Error", "Failed to install uv package manager. Please install it manually."
+            )
             sys.exit(1)
         logger.info("uv package manager installed successfully")
 
@@ -277,7 +295,9 @@ def get_pnpm_path(npm_path: Path) -> Path:
         )
         if result.returncode != 0 or not pnpm_path.exists():
             logger.error(f"Failed to install pnpm: {result.stderr}")
-            messagebox.showerror("Error", "Failed to install pnpm. Please install it manually using npm.")
+            messagebox.showerror(
+                "Error", "Failed to install pnpm. Please install it manually using npm."
+            )
             sys.exit(1)
         logger.info("pnpm installed successfully")
     return pnpm_path
@@ -289,12 +309,12 @@ def install_frontend_dependencies(project_root: Path, nodejs_path: str):
     os.chdir(frontend_dir)
 
     npm_path = Path(nodejs_path) / ("npm.cmd" if is_windows else "npm")
-    node_exe = Path(nodejs_path) / ("node.exe" if is_windows else "node")
-    if not npm_path.exists() or not node_exe.exists():
+    node_path = Path(nodejs_path) / ("node.exe" if is_windows else "node")
+    if not npm_path.exists() or not node_path.exists():
         logger.error(f"npm or node not found at {nodejs_path}")
         sys.exit(1)
 
-    logger.info(f"node_path: {node_exe}")
+    logger.info(f"node_path: {node_path}")
     logger.info(f"npm_path: {npm_path}")
 
     env = os.environ.copy()
@@ -329,10 +349,13 @@ def run_frontend(project_root: Path, nodejs_path: str) -> subprocess.Popen:
     global frontend_process
     frontend_dir = project_root / "frontend"
     os.chdir(frontend_dir)
-
     npm_path = Path(nodejs_path) / ("npm.cmd" if is_windows else "npm")
-    node_exe = Path(nodejs_path) / ("node.exe" if is_windows else "node")
-    if not node_exe.exists() or not npm_path.exists():
+    node_path = Path(nodejs_path) / ("node.exe" if is_windows else "node")
+
+    logger.info(f"nodejs_path: {nodejs_path}")
+    logger.info(f"node exists: {node_path.exists()}")
+    logger.info(f"npm exists: {npm_path.exists()}")
+    if not node_path.exists() or not npm_path.exists():
         logger.error(f"Node.js path invalid: {nodejs_path}")
         sys.exit(1)
 
@@ -340,11 +363,13 @@ def run_frontend(project_root: Path, nodejs_path: str) -> subprocess.Popen:
 
     env = os.environ.copy()
     env["PATH"] = str(nodejs_path) + os.pathsep + env["PATH"]
-    env["NODE"] = str(node_exe)
+    env["NODE"] = str(node_path)
 
     logger.info("Starting frontend server with 'pnpm run dev'...")
     frontend_process = subprocess.Popen(
         [str(pnpm_path), "run", "dev"],
+        shell=True if is_windows else False,
+        creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if is_windows else 0,
         env=env,
     )
     return frontend_process
@@ -361,7 +386,7 @@ def find_available_port(start_port: int = 8000, max_tries: int = 50) -> int:
                 logger.info(f"Port {port} is available")
                 return port
             except OSError as e:
-                if e.errno in (98, 10048):  # 端口被占用
+                if e.errno in (98, 10048):
                     if clear_port(port):
                         time.sleep(1)
                         try:
@@ -410,7 +435,9 @@ def run_backend(project_root: Path, port: int) -> subprocess.Popen:
         backend_dir / ".venv" / ("Scripts" if is_windows else "bin") / ("python.exe" if is_windows else "python")
     )
     if not venv_python.exists():
-        logger.warning(f"Virtual environment Python not found at {venv_python}, using system Python")
+        logger.warning(
+            f"Virtual environment Python not found at {venv_python}, using system Python"
+        )
         venv_python = sys.executable
 
     env = os.environ.copy()
@@ -435,6 +462,7 @@ def run_backend(project_root: Path, port: int) -> subprocess.Popen:
         ],
         cwd=str(backend_dir),
         env=env,
+        creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if is_windows else 0,
     )
 
     max_attempts = 30
@@ -521,57 +549,6 @@ def signal_handler(sig, frame):
     sys.exit(0)
 
 
-# 测试 API 密钥的有效性
-def test_api_key(api_key: str, model: str, venv_python: Path) -> bool:
-    temp_script = project_root / "temp_api_test.py"
-    script_content = f"""
-import asyncio
-from litellm import acompletion
-
-async def test():
-    try:
-        response = await acompletion(
-            model="{model}",
-            messages=[{{"role": "user", "content": "Hello"}}],
-            api_key="{api_key}",
-        )
-        print("SUCCESS")
-    except Exception as e:
-        if "authentication" in str(e).lower() or "401" in str(e):
-            print("FAIL")
-        else:
-            raise
-
-asyncio.run(test())
-"""
-    with temp_script.open("w", encoding="utf-8") as f:
-        f.write(script_content)
-
-    try:
-        result = subprocess.run(
-            [str(venv_python), str(temp_script)],
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        output = result.stdout.strip()
-        if output == "SUCCESS":
-            return True
-        elif output == "FAIL":
-            return False
-        else:
-            logger.error(f"API key test produced unexpected output: {output}")
-            raise RuntimeError("Unexpected API key test result")
-    except subprocess.TimeoutExpired:
-        logger.error("API key test timed out")
-        raise
-    except subprocess.CalledProcessError as e:
-        logger.error(f"API key test failed with error: {e.stderr}")
-        raise
-    finally:
-        temp_script.unlink(missing_ok=True)
-
-
 # 主函数：初始化并启动项目服务
 def main():
     signal.signal(signal.SIGINT, signal_handler)
@@ -606,52 +583,12 @@ def main():
     logger.info("Configuring environment files...")
     configure_env_files(project_root)
 
-    backend_env = project_root / "backend" / ".env.dev"
-    load_dotenv(dotenv_path=backend_env, override=True)
-    api_key = os.getenv("API_KEY", "").strip()
-    model = os.getenv("MODEL", "").strip()
-
-    if not api_key or not model:
-        logger.error("API_KEY or MODEL is missing or empty after configuration.")
-        sys.exit(1)
-
-    logger.info(f"Loaded API_KEY: {api_key}, MODEL: {model}")
-
     logger.info("Installing backend dependencies...")
     venv_dir = install_backend_dependencies(project_root)
     venv_python = venv_dir / ("Scripts" if is_windows else "bin") / ("python.exe" if is_windows else "python")
     if not venv_python.exists():
         logger.error(f"Virtual environment Python not found: {venv_python}")
         sys.exit(1)
-
-    max_retries = 3
-    for attempt in range(max_retries):
-        try:
-            if test_api_key(api_key, model, venv_python):
-                logger.info("API key and model validated successfully")
-                break
-            else:
-                new_api_key = input(
-                    f"Invalid API key or model (attempt {attempt+1}/{max_retries}). Please enter a valid API key: "
-                ).strip()
-                new_model = input(
-                    f"Please enter a valid model name (e.g., deepseek/deepseek-chat, attempt {attempt+1}/{max_retries}): "
-                ).strip()
-                set_key(backend_env, "API_KEY", new_api_key, quote_mode="never")
-                set_key(backend_env, "MODEL", new_model, quote_mode="never")
-                api_key = new_api_key
-                model = new_model
-        except Exception as e:
-            logger.error(f"API key test failed: {e}")
-            if attempt == max_retries - 1:
-                logger.error("Maximum retries reached. Please check your API key and model, then try again.")
-                sys.exit(1)
-    else:
-        logger.error("Maximum retries reached. Please check your API key and model, then try again.")
-        sys.exit(1)
-
-    logger.info("Installing frontend dependencies...")
-    install_frontend_dependencies(project_root, nodejs_path)
 
     logger.info("Scanning for available backend port...")
     try:
@@ -672,6 +609,9 @@ def main():
     logger.info(
         f"Updated frontend .env: VITE_API_BASE_URL=http://localhost:{port} and VITE_WS_URL=ws://localhost:{port}"
     )
+
+    logger.info("Installing frontend dependencies...")
+    install_frontend_dependencies(project_root, nodejs_path)
 
     logger.info("Starting project services...")
     run_frontend(project_root, nodejs_path)
