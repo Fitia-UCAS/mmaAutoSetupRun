@@ -81,30 +81,83 @@
    Configuring Docker registry mirror...
    daemon.json already exists. Please ensure it contains valid registry mirrors
    Configuring environment variables...
+           1 file(s) copied.
+   Copied backend\.env.dev.example to backend\.env.dev. Adding local Redis comment...
+   
+   ************************************************************
+   *                      WARNING                             *
+   ************************************************************
+   * To run MathModelAgent, you MUST configure the following: *
+   * 1. Redis URL:                                            *
+   *    - For Docker: REDIS_URL=redis://redis:6379/0          *
+   *    - For local: REDIS_URL=redis://localhost:6379/0       *
+   * 2. Model and API Key settings in backend\.env.dev:       *
+   *    - COORDINATOR_MODEL and COORDINATOR_API_KEY           *
+   *    - MODELER_MODEL and MODELER_API_KEY                   *
+   *    - CODER_MODEL and CODER_API_KEY                       *
+   *    - WRITER_MODEL and WRITER_API_KEY                     *
+   *    - DEFAULT_MODEL and DEFAULT_API_KEY                   *
+   * Refer to https://docs.litellm.ai/docs/ for model options.*
+   *                                                          *
+   * Please edit backend\.env.dev and rerun this script.      *
+   ************************************************************
+   
+           1 file(s) copied.
+   Copied frontend\.env.example to frontend\.env.development. Please edit the configuration
+   Stopping and removing existing containers if any...
+   Note: Data is persisted in volumes and will not be lost when containers are removed.
+   Removing existing containers if they exist...
    Starting Docker Compose services...
-   [+] Building 1028.6s (27/27) FINISHED
-   ...
    [+] Running 8/8
-    ✔ backend Built
-    ✔ frontend Built
-    ✔ Network mathmodelagent_default Created
-    ✔ Volume "mathmodelagent_redis_data" Created
-    ✔ Volume "mathmodelagent_backend_venv" Created
-    ✔ Container mathmodelagent_redis Started
-    ✔ Container mathmodelagent_backend Started
-    ✔ Container mathmodelagent_frontend Started
+    ✔ redis Pulled                                                                                                                                       43.1s
+      ✔ 8493ebef02b7 Pull complete                                                                                                                        7.7s
+      ✔ f03ac91e0937 Pull complete                                                                                                                        8.5s
+      ✔ f18232174bc9 Pull complete                                                                                                                       10.7s
+      ✔ 3db14a52e194 Pull complete                                                                                                                        9.4s
+      ✔ 63ba5ae8d20d Pull complete                                                                                                                        8.9s
+      ✔ 3535ba13b4da Pull complete                                                                                                                       13.8s
+      ✔ 4f4fb700ef54 Pull complete                                                                                                                       11.0s
+   Compose can now delegate builds to bake for better performance.
+    To do so, set COMPOSE_BAKE=true.
+   [+] Building 367.1s (27/27) FINISHED                                                 
+   
+   ...
+   
+    ✔ backend                                    Built                                                                                                    0.0s
+    ✔ frontend                                   Built                                                                                                    0.0s
+    ✔ Network mathmodelagent-main_default        Created                                                                                                  0.1s
+    ✔ Volume "mathmodelagent-main_redis_data"    Created                                                                                                  0.0s
+    ✔ Volume "mathmodelagent-main_backend_venv"  Created                                                                                                  0.0s
+    ✔ Container mathmodelagent_redis             Started                                                                                                 11.6s
+    ✔ Container mathmodelagent_backend           Started                                                                                                 11.2s
+    ✔ Container mathmodelagent_frontend          Started                                                                                                  3.9s
    Services started successfully
    Frontend: http://localhost:5173
    Backend API: http://localhost:8000
+   Press any key to exit...
+   Press any key to continue . . .
    ```
    关闭上述cmd窗口。
 
-   > **非非警告**：构建可能慢如乌龟（示例里用了 1028.6 秒！后续非非又试了试基本每次5-8min）。网速差？换个更快镜像源，飞起来！
 
-4. 修改后端配置文件样式如下（示例apikey和model）
+> **非非警告**：若未配置buildx则构建可能慢如乌龟。可到[Release v0.24.0 · docker/buildx](https://github.com/docker/buildx/releases/tag/v0.24.0)下载[buildx-v0.24.0.windows-amd64.exe](https://github.com/docker/buildx/releases/download/v0.24.0/buildx-v0.24.0.windows-amd64.exe)或别的版本（根据你的系统）。
+>
+> 将下载好的文件移动至`%USERPROFILE%\.docker\`下的`cli-plugins`文件夹下（如果不存在则创建），重命名下载的`buildx-版本号.exe`为`docker-buildx.exe`。可在cmd验证buildx安装。
+>
+> ```
+> Microsoft Windows [版本 10.0.19045.5737]
+> (c) Microsoft Corporation。保留所有权利。
+> 
+> C:\Users\aFei>docker buildx version
+> github.com/docker/buildx v0.24.0 d0e5e86c8b88ae4865040bc96917c338f4dd673c
+> 
+> C:\Users\aFei>
+> ```
+
+1. 修改后端配置文件样式如下（示例apikey和model）
    ![docker env dev配置](./assets/docker%20env%20dev%E9%85%8D%E7%BD%AE.png)
 
-5. 修改后端配置文件后再运行上述 bat 脚本，ctrl + 点击 访问前端，即可食用。
+2. 修改后端配置文件后再运行上述 bat 脚本，ctrl + 点击 访问前端，即可食用。
 
 ## 常见错误（别踩坑）
 
