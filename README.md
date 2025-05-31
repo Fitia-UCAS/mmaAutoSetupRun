@@ -1,46 +1,57 @@
 # [MathModelAgent](https://github.com/jihe520/MathModelAgent) 自动部署脚本 README
 
-欢迎踏上 MathModelAgent 的自动化部署之旅！这篇 README 是你的“通关秘籍”，助你轻松搞定这个数学建模神器的部署。Windows 硬核党、macOS 文艺范儿，这里都有你的专属脚本！非非警告：先读后动手，路径搞错可别怪我！😜
+欢迎体验 MathModelAgent 的自动化部署！本 README 是你的部署指南，助你快速上手这款数学建模利器。**警告**：先读后操作，路径错误后果自负！😉
 
 ## 更新日志
 
 ### 新功能
-- **重磅登场：`auto_setup_run_docker.bat`！** 扔进 MathModelAgent 目录，双击启动，Docker 魔法自动搞定！但坑不少，务必啃完 README 再动手！🚨
 
-### 移除auto_setup_run_win_and_mac自动配置脚本，因无法验证
+- **全新上线：`auto_setup_run_docker.bat`！** 放入 MathModelAgent 根目录，双击运行，Docker 自动完成部署！但注意，务必仔细阅读本 README 避免踩坑！🚨
 
-## 前置条件（跳过会后悔）
+### 移除
 
-- **Docker Desktop**：必须安装、运行、登录！没 Docker？直接 GG！
-- **用代理**：偷偷翻墙才顺畅。
-- **镜像源必备**：配置国内镜像源，避开 VPN 冲突和认证麻烦。
-- **后端的.env.dev对于doker有特定配置**
+- 移除 `auto_setup_run_win_and_mac` 脚本，因其功能未经验证。
 
-**非非提醒**：尽管`auto_setup_run_docker.bat` 会尝试配置镜像源，但可能需手动在 Docker Engine 界面点 `Apply & Restart` 生效。
+### 运行 auto_setup_ruan_docker 的前置条件（必读）
 
-## 推荐部署流程（正确姿势）
+- **后端 `.env.dev` 配置**：Docker 部署前必须手动配置 `.env.dev`，这是第一步，跳过必翻车！
+- **Docker Desktop**：需安装、运行并登录。没有 Docker？直接无缘部署！
+- **代理**：建议使用代理以确保网络畅通。
+- **镜像源**：必须配置国内镜像源，避免 VPN 冲突或认证问题。
 
-**参考资料（学霸笔记）：**
+**提示**：`auto_setup_run_docker.bat` 会尝试配置镜像源，但可能需在 Docker Desktop 的 `Docker Engine` 界面手动点击 `Apply & Restart` 生效。
+
+### 推荐部署流程
+
+**参考资料**：
 
 - [Windows | Docker Docs](https://docs.docker.com/desktop/setup/install/windows-install/)
-- [如何优雅的变更 Docker Desktop 的镜像存储路径 - 腾讯云开发者社区](https://cloud.tencent.com/developer/article/2414097)
-- [新版本 Docker Desktop 自定义安装路径和下载镜像地址路径修改](https://blog.csdn.net/hx2019626/article/details/145140014)
+- [如何优雅地变更 Docker Desktop 的镜像存储路径](https://cloud.tencent.com/developer/article/2414097)
+- [新版本 Docker Desktop 自定义安装路径和镜像地址修改](https://blog.csdn.net/hx2019626/article/details/145140014)
 
-为了丝滑部署，照着这几步走：
+按以下步骤操作，确保部署顺畅：
 
-1. **安装 Docker Desktop**：
-
-   - 指定安装和资源路径，避免默认塞满 C 盘。示例命令（路径可自定）：
+1. **配置后端 `.env.dev`**：
+   
+   - 复制 `backend\.env.dev.example` 为 `backend\.env.dev`。
+   - 编辑 `backend\.env.dev`，配置以下关键项（参考下图示例）：
+     - `REDIS_URL`：Docker 使用 `redis://redis:6379/0`，本地使用 `redis://localhost:6379/0`。
+     - 模型和 API 密钥：如 `COORDINATOR_MODEL`, `COORDINATOR_API_KEY`, `MODELER_MODEL`, `MODELER_API_KEY` 等。
+     - 参考 [LiteLLM 文档](https://docs.litellm.ai/docs/) 获取模型选项。
+   - 示例配置：
+     ![后端 .env.dev 配置](./assets/docker%20env%20dev%E9%85%8D%E7%BD%AE.png)
+   
+2. **安装 Docker Desktop**：
+   - 指定安装和资源路径，避免占满 C 盘。示例命令（路径可自定义）：
      ```bash
      start /w "" "Docker Desktop Installer.exe" install --accept-license --installation-dir="E:\Docker\Docker"
      ```
-   - 在 Docker Desktop 的 `设置 > 资源` 里配置存储路径，省空间又省心：
+   - 在 Docker Desktop 的 `设置 > 资源` 中设置存储路径，节省空间：
      ![Docker 资源设置](./assets/docker%20resources.png)
 
-2. **配置镜像源**：
-   - 用下面`daemon.json` 配置国内镜像源，加速拉取镜像。直接改 `%USERPROFILE%\.docker\daemon.json` 或在 Docker 的 `设置 > Docker Engine` 贴上这神级配置：
-
-     ```python
+3. **配置镜像源**：
+   - 编辑 `%USERPROFILE%\.docker\daemon.json` 或在 Docker Desktop 的 `设置 > Docker Engine` 中粘贴以下配置，加速镜像拉取：
+     ```json
      {
        "builder": {
          "gc": {
@@ -59,189 +70,119 @@
        ]
      }
      ```
+     ![Docker Engine 设置](./assets/doker%20engine.png)
 
-     
-
-     ![Docker Engine 设置界面](./assets/doker%20engine.png)
-
-3. **运行自动部署脚本**：
-
-   - 将 `auto_setup_run_docker.bat` 放入 MathModelAgent 目录，双击运行。脚本会：
-     - 检查 Docker 是否正常运行。
-     - 配置镜像源。
+4. **运行自动部署脚本**：
+   - 将 `auto_setup_run_docker.bat` 放入 MathModelAgent 根目录，双击执行。脚本会：
+     - 检查 Docker 是否运行。
+     - 配置镜像源（若未配置）。
      - 设置环境变量。
-     - 启动 Docker Compose，点燃全场！
+     - 通过 Docker Compose 启动服务。
+   - **示例输出**：
+     ```
+     Checking if Docker is installed and running...
+     Docker version 28.1.1, build 4eba377
+     Verifying project directory...
+     Configuring Docker registry mirror...
+     daemon.json already exists. Please ensure it contains valid registry mirrors
+     Configuring environment variables...
+         1 file(s) copied.
+     Copied backend\.env.dev.example to backend\.env.dev. Adding local Redis comment...
+     
+     ************************************************************
+     *                      WARNING                             *
+     ************************************************************
+     * To run MathModelAgent, you MUST configure the following: *
+     * 1. Redis URL:                                            *
+     *    - For Docker: REDIS_URL=redis://redis:6379/0          *
+     *    - For local: REDIS_URL=redis://localhost:6379/0       *
+     * 2. Model and API Key settings in backend\.env.dev:       *
+     *    - COORDINATOR_MODEL and COORDINATOR_API_KEY           *
+     *    - MODELER_MODEL and MODELER_API_KEY                   *
+     *    - CODER_MODEL and CODER_API_KEY                       *
+     *    - WRITER_MODEL and WRITER_API_KEY                     *
+     *    - DEFAULT_MODEL and DEFAULT_API_KEY                   *
+     * Refer to https://docs.litellm.ai/docs/ for model options.*
+     *                                                          *
+     * Please edit backend\.env.dev and rerun this script.      *
+     ************************************************************
+     
+         1 file(s) copied.
+     Copied frontend\.env.example to frontend\.env.development. Please edit the configuration
+     Stopping and removing existing containers if any...
+     Note: Data is persisted in volumes and will not be lost when containers are removed.
+     Removing existing containers if they exist...
+     Starting Docker Compose services...
+     [+] Running 8/8
+     
+     ...
+     
+     Services started successfully
+     Frontend: http://localhost:5173
+     Backend API: http://localhost:8000
+     Press any key to exit...
+     ```
+   - 关闭命令行窗口。
 
-   **示例输出**（感受这气势）：
+5. **docker container运行MMA**：
+   - 访问前端，MathModelAgent 即可使用！
 
-   ```
-   Checking if Docker is installed and running...
-   Docker version 28.1.1, build 4eba377
-   Verifying project directory...
-   Configuring Docker registry mirror...
-   daemon.json already exists. Please ensure it contains valid registry mirrors
-   Configuring environment variables...
-           1 file(s) copied.
-   Copied backend\.env.dev.example to backend\.env.dev. Adding local Redis comment...
-   
-   ************************************************************
-   *                      WARNING                             *
-   ************************************************************
-   * To run MathModelAgent, you MUST configure the following: *
-   * 1. Redis URL:                                            *
-   *    - For Docker: REDIS_URL=redis://redis:6379/0          *
-   *    - For local: REDIS_URL=redis://localhost:6379/0       *
-   * 2. Model and API Key settings in backend\.env.dev:       *
-   *    - COORDINATOR_MODEL and COORDINATOR_API_KEY           *
-   *    - MODELER_MODEL and MODELER_API_KEY                   *
-   *    - CODER_MODEL and CODER_API_KEY                       *
-   *    - WRITER_MODEL and WRITER_API_KEY                     *
-   *    - DEFAULT_MODEL and DEFAULT_API_KEY                   *
-   * Refer to https://docs.litellm.ai/docs/ for model options.*
-   *                                                          *
-   * Please edit backend\.env.dev and rerun this script.      *
-   ************************************************************
-   
-           1 file(s) copied.
-   Copied frontend\.env.example to frontend\.env.development. Please edit the configuration
-   Stopping and removing existing containers if any...
-   Note: Data is persisted in volumes and will not be lost when containers are removed.
-   Removing existing containers if they exist...
-   Starting Docker Compose services...
-   [+] Running 8/8
-    ✔ redis Pulled                                                                                                                                       43.1s
-      ✔ 8493ebef02b7 Pull complete                                                                                                                        7.7s
-      ✔ f03ac91e0937 Pull complete                                                                                                                        8.5s
-      ✔ f18232174bc9 Pull complete                                                                                                                       10.7s
-      ✔ 3db14a52e194 Pull complete                                                                                                                        9.4s
-      ✔ 63ba5ae8d20d Pull complete                                                                                                                        8.9s
-      ✔ 3535ba13b4da Pull complete                                                                                                                       13.8s
-      ✔ 4f4fb700ef54 Pull complete                                                                                                                       11.0s
-   Compose can now delegate builds to bake for better performance.
-    To do so, set COMPOSE_BAKE=true.
-   [+] Building 367.1s (27/27) FINISHED                                                 
-   
-   ...
-   
-    ✔ backend                                    Built                                                                                                    0.0s
-    ✔ frontend                                   Built                                                                                                    0.0s
-    ✔ Network mathmodelagent-main_default        Created                                                                                                  0.1s
-    ✔ Volume "mathmodelagent-main_redis_data"    Created                                                                                                  0.0s
-    ✔ Volume "mathmodelagent-main_backend_venv"  Created                                                                                                  0.0s
-    ✔ Container mathmodelagent_redis             Started                                                                                                 11.6s
-    ✔ Container mathmodelagent_backend           Started                                                                                                 11.2s
-    ✔ Container mathmodelagent_frontend          Started                                                                                                  3.9s
-   Services started successfully
-   Frontend: http://localhost:5173
-   Backend API: http://localhost:8000
-   Press any key to exit...
-   Press any key to continue . . .
-   ```
-   关闭上述cmd窗口。
-
-
-> **非非警告**：若未配置buildx则构建可能慢如乌龟。可到[Release v0.24.0 · docker/buildx](https://github.com/docker/buildx/releases/tag/v0.24.0)下载[buildx-v0.24.0.windows-amd64.exe](https://github.com/docker/buildx/releases/download/v0.24.0/buildx-v0.24.0.windows-amd64.exe)或别的版本（根据你的系统）。
+> **提示**：若未安装 buildx，构建可能极慢。建议从 [Docker buildx v0.24.0](https://github.com/docker/buildx/releases/tag/v0.24.0) 下载 `buildx-v0.24.0.windows-amd64.exe`（或根据系统选择版本）：
 >
-> 将下载好的文件移动至`%USERPROFILE%\.docker\`下的`cli-plugins`文件夹下（如果不存在则创建），重命名下载的`buildx-版本号.exe`为`docker-buildx.exe`。可在cmd验证buildx安装。
->
-> ```
-> Microsoft Windows [版本 10.0.19045.5737]
-> (c) Microsoft Corporation。保留所有权利。
-> 
-> C:\Users\aFei>docker buildx version
-> github.com/docker/buildx v0.24.0 d0e5e86c8b88ae4865040bc96917c338f4dd673c
-> 
-> C:\Users\aFei>
-> ```
+> - 移动至 `%USERPROFILE%\.docker\cli-plugins`（若无此文件夹则创建）。
+> - 重命名为 `docker-buildx.exe`。
+> - 在命令行验证：
+>   ```
+>   C:\Users\YourUser>docker buildx version
+>   github.com/docker/buildx v0.24.0 d0e5e86c8b88ae4865040bc96917c338f4dd673c
+>   ```
 
-1. 修改后端配置文件样式如下（示例apikey和model）
-   ![docker env dev配置](./assets/docker%20env%20dev%E9%85%8D%E7%BD%AE.png)
-
-2. 修改后端配置文件后再运行上述 bat 脚本，ctrl + 点击 访问前端，即可食用。
-
-## 常见错误（别踩坑）
+### 常见问题（避坑指南）
 
 **错误做法**：直接双击 `Docker Desktop Installer.exe` 默认安装。
 
 - **问题**：
-  - 默认安装会把 Docker 核心文件和镜像塞到 `%USERPROFILE%\AppData\Local\Docker\wsl\`，C 盘空间吃紧！
-  - 没配置镜像源，拉取镜像慢如蜗牛，甚至超时失败。
-- **解决办法**：按“推荐部署流程”走，指定安装路径、配置镜像源，省心又高效。
+  - 默认安装将 Docker 文件和镜像存储在 `%USERPROFILE%\AppData\Local\Docker\wsl\`，C 盘空间告急！
+  - 未配置镜像源，导致拉取镜像缓慢或失败。
+- **解决办法**：按推荐流程操作，指定安装路径并配置镜像源。
 
-## 资源管理（救硬盘于水火）
+### 资源管理（保护你的硬盘）
 
-- **存储黑洞**：部署约占 14GB，Docker 文件和镜像默认在 `%USERPROFILE%\AppData\Local\Docker\wsl\`。
+- **存储占用**：部署约需 14GB 后续如果有其他镜像，会更大...，默认存储在 `%USERPROFILE%\AppData\Local\Docker\wsl\`。
   ![存储空间占用](./assets/space.png)
 
-如果你很不幸直接双击docker安装文件安装了docker，可以尝试以下方式释放空间...
-
-- **大扫除**：硬盘告急？用这俩命令清理：
+- **空间清理**：硬盘空间不足时，运行以下命令：
   
   ```bash
   docker system prune -a
   docker volume prune
   ```
   
-- **存储优化**：
-  1. 在 Docker Desktop 的 `设置 > 资源` 改存储路径。
-  2. 高级玩法：重启电脑后跑 [DockerSetup.ps1](./收录脚本/DockerSetup.ps1)，用符号链接挪存储路径（但回滚麻烦，谨慎操作）。
+- **优化存储**：
+  1. 在 Docker Desktop 的 `设置 > 资源` 修改存储路径。
+  2. 高级操作：重启电脑后运行 [DockerSetup.ps1](./收录脚本/DockerSetup.ps1)，通过符号链接迁移存储路径（谨慎操作，回滚复杂）。
 
 ## 脚本介绍（你的懒人神器）
 
 ### 批处理脚本：`auto_setup_run_docker.bat`
-**这是啥？**
-Docker 爱好者的福音！Windows 专属，自动检查 Docker、配镜像源、调环境变量、启动全家桶。一键起飞，省心到爆！
 
-**咋用？**
-
-1. 把脚本丢进 MathModelAgent 目录，双击开跑。
-2. 脚本确认 Docker 活着没，死了就让你去装。
-3. 自动配镜像源（若 `daemon.json` 没配好，会帮你搞定）。
-4. 复制 `backend/.env.dev.example` 和 `frontend/.env.example` 到对应 `.env` 文件（记得手动填 API key 和 model，修改docker的redis配置）。
-5. 启动 Docker Compose，点亮前端（`http://localhost:5173`）和后端（`http://localhost:8000`）。
-6. 出错？跑 `docker-compose logs` 查原因。
-7. 想停？按任意键退出，优雅下线。
+把脚本丢进 MathModelAgent 目录，双击开跑。
 
 ### 批处理脚本：`auto_setup_run.bat`
 
-**这是啥？**
-Windows 懒人神器！自动检查 Python、Node.js、Redis，缺啥装啥，配好环境变量，启动 MathModelAgent 全家桶，简单又暴力！
-
-**咋用？**
-1. 双击 `auto_setup_run.bat`，坐等魔法。
-2. 检查 Python（要 3.8+），没有就催你去装。
-3. 没 Node.js？自动下 v20.17.0 到 `nodejs-portable`.
-4. 缺 Redis？自动拉 v5.0.14.1 到 `redis-portable`.
-5. 配置 `backend/.env.dev` 和 `frontend/.env`（API key 和 model 得你手填）。
-6. 启动 Redis、后端（`http://localhost:8000`）、前端（`http://localhost:5173`），弹出仨窗口。
-7. 想停？关掉 “Redis Server”、“Backend Server”、“Frontend Server” 窗口。
+双击 `auto_setup_run.bat`，坐等魔法。
 
 ### 批处理脚本：`start_mma.bat`
-**这是啥？**
-Windows 极简启动脚本，专为环境已配好的大佬设计（需要是本地配置，而不是docker），点一下就跑前端后端，干净利落！
-
-**咋用？**
 
 1. 确保 Python、Node.js、pnpm、Redis 都装好，`backend/.env.dev` 和 `frontend/.env` 也配齐。
 2. 双击 `start_mma.bat`。
-3. 启动后端（`http://localhost:8000`）和前端（`http://localhost:5173`）。Redis 得你自己手动开。
-4. 关窗口停服务，简单粗暴。
 
 ### 批处理脚本：`start_mma_all_windows.bat`
-**这是啥？**
-Windows 批处理全家桶启动器（需要是本地配置，而不是docker），适合 Node.js 已就位的玩家。自动开 Redis、前端、后端，仨窗口齐飞，操作爽到爆！
 
-**咋用？**
 1. 确保 Python（3.8+）、Node.js、pnpm 装好，Redis 扔在 `redis-portable`。
 2. 双击 `start_mma_all_windows.bat`。
-3. 自动配环境变量，装依赖，启动 Redis、后端（`http://localhost:8000`）、前端（`http://localhost:5173`）。
 
 ### Python 脚本：`auto_setup_run_win.py`
-
-**这是啥？**
-Windows 专属 Python 脚本，智能检查环境、装依赖、动态分配端口，启动 MathModelAgent 像开挂一样顺！
-
-**咋用？**
 
 1. 装好 Python（推荐 3.12）、Redis、Node.js、pnpm。
 2. 跑 `python auto_setup_run_win.py`。
@@ -254,49 +195,4 @@ Windows 专属 Python 脚本，智能检查环境、装依赖、动态分配端�
 服务跑起来后，成果文件都乖乖躺在 `backend/project/work_dir/xxx/`：
 - `notebook.ipynb`：代码神器，拿去跑模型！
 - `res.md`：Markdown 格式结果，简洁又好看。
-- `res.docx`：带图的 Word 文档，装逼必备！
-
-## 脚本对比（选对工具，事半功倍）
-
-### 启动脚本
-
-| 特性 | start_mma.bat | start_mma_all_windows.bat |
-|------|---------------|---------------------------|
-| 平台 | Windows | Windows |
-| 功能 | 快速启动前端和后端（需手动配环境） | 启动 Redis、前端、后端，自动配环境 |
-| 使用 | 双击运行 | 双击运行 |
-| 依赖 | Python（3.12推荐）、Redis、Node.js、pnpm（手动装） | Python（3.8+）、Node.js、pnpm（手动），Redis 放 `redis-portable` |
-| 路径选择 | 无 | 固定 `redis-portable` |
-| 亮点 | 轻量快速，窗口化运行 | 自动配 `.env`，仨窗口并行，清华镜像加速 |
-| 输出 | 前端：`http://localhost:5173`<br>后端：`http://localhost:8000` | 同左 |
-| 坑点 | 不检查环境，Redis 得手动开 | 需手动装 Node.js，Redis 路径固定 |
-
-### 安装配置脚本
-| 特性 | auto_setup_run.bat | auto_setup_run_docker.bat | auto_setup_run_win.py |
-|------|---------------------|---------------------------|------------------------|
-| 平台 | Windows | Windows | Windows |
-| 功能 | 自动下载依赖、配置并启动系统 | 检查 Docker、配镜像源、启动 Docker Compose | 环境检测、动态端口、配置并启动 |
-| 使用 | 双击运行 | 双击运行 | `python auto_setup_run_win.py` |
-| 依赖 | Python（3.8+），自动下 Node.js v20.17.0、Redis 5.0.14.1 | Docker Desktop | Python（3.12推荐）、Redis、Node.js、pnpm（手动） |
-| 路径选择 | 自动下载到项目目录 | 无（需 docker-compose.yml） | 手动选择 |
-| 亮点 | 全自动下载、窗口化、清华镜像 | Docker 一键部署，镜像源加速 | 端口扫描、详细日志、API 验证 |
-| 输出 | 前端：`http://localhost:5173`<br>后端：`http://localhost:8000` | 同左 | 同左（后端端口可变） |
-| 坑点 | 固定版本、需联网 | Docker 需预装，网络慢会卡 | 需手动装依赖、路径要准 |
-
-## 选择指南（别选错，浪费感情）
-
-**安装配置脚本**：新手或环境不全？选这些！
-
-- `auto_setup_run.bat`：全自动下载，Windows 小白的最爱。
-- `auto_setup_run_docker.bat`：Docker 党专属，一键部署，省心省力。
-- `auto_setup_run_win.py`：动态端口+详细日志，Windows 进阶玩家的菜。
-
-**启动脚本**：环境已就绪？直接开跑！
-
-- `start_mma.bat`：轻量如羽，Redis 得你自己搞。
-
-- `start_mma_all_windows.bat`：Redis、前端、后端全自动。配合`auto_setup_run.bat`使用。
-
-## 终极提醒（不听后悔）
-
-有好点子？快改脚本！遇到 bug？改脚本吧！众所周知，非非超渣！😎
+- `res.docx`：带图的 Word 文档...
