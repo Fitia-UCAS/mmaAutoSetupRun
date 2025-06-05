@@ -164,35 +164,19 @@
 
 ## 脚本介绍（你的懒人神器）
 
-### 批处理脚本：`auto_setup_run_docker.bat`
+  批处理脚本：`auto_setup_run_docker.bat`
 
-把脚本丢进 MathModelAgent 目录，双击开跑。
+  批处理脚本：`auto_setup_run.bat`
 
-### 批处理脚本：`auto_setup_run.bat`
+  批处理脚本：`start_mma.bat`
 
-双击 `auto_setup_run.bat`，坐等魔法。
+  批处理脚本：`start_mma_all_windows.bat`
 
-### 批处理脚本：`start_mma.bat`
-
-1. 确保 Python、Node.js、pnpm、Redis 都装好，`backend/.env.dev` 和 `frontend/.env` 也配齐。
-2. 双击 `start_mma.bat`。
-
-### 批处理脚本：`start_mma_all_windows.bat`
-
-1. 确保 Python（3.8+）、Node.js、pnpm 装好，Redis 扔在 `redis-portable`。
-2. 双击 `start_mma_all_windows.bat`。
-
-### Python 脚本：`auto_setup_run_win.py`
-
-1. 装好 Python（推荐 3.12）、Redis、Node.js、pnpm。
-2. 跑 `python auto_setup_run_win.py`。
-3. 弹出对话框让你选 Redis 和 Node.js 路径（**非非警告**：选错路径，脚本会翻脸！）。
-4. 脚本检查 Redis，装依赖，配 `.env`，启动 Redis、后端（`http://localhost:8000` 或动态端口）、前端（`http://localhost:5173`）。
-6. 日志在 `log/main.log`，Ctrl+C 优雅退出。
+  Python 脚本：`auto_setup_run_win.py`
 
 ## 项目输出（你的劳动成果）
 
-服务跑起来后，成果文件都乖乖躺在 `backend/project/work_dir/xxx/`：
+服务跑起来后，成果文件都乖乖躺在 `backend/project/work_dir/xxx/`（如果是docker则需要在docker容器里面查看，一看就懂啦！）
 - `notebook.ipynb`：代码神器，拿去跑模型！
 - `res.md`：Markdown 格式结果，简洁又好看。
 - `res.docx`：带图的 Word 文档...

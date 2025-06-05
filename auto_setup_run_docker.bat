@@ -114,9 +114,8 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-echo Services started successfully!
-echo Frontend: http://localhost:5173
-echo Backend API: http://localhost:8000
-echo Press any key to exit...
+echo "Docker has been set up successfully!"
+echo "Starting Docker containers for backend, frontend, and Redis..."
+echo "Press any key to exit..."
 pause
 endlocal
