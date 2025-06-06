@@ -9,6 +9,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import logging
 import socket
+from urllib.parse import urlparse
 
 # 自动安装所需的 Python 库（仅限不在 pyproject.toml 中的库）
 required_libraries = ["python-dotenv", "psutil"]
@@ -106,53 +107,32 @@ def check_path_valid(path: str, required_files: list) -> bool:
     return True
 
 
-# 启动 Redis 服务器并验证其运行状态
+# 启动 Redis 服务器
 def start_redis(redis_path: str) -> bool:
+    """Start Redis server."""
     global redis_process
     redis_server = Path(redis_path) / "redis-server.exe"
     if not redis_server.exists():
         logger.error(f"Redis server not found at {redis_server}")
-        return False
-
-    for attempt in range(3):
-        logger.info(f"Attempt {attempt + 1}: Starting Redis server: {redis_server}")
-        try:
-            redis_process = subprocess.Popen(
-                [str(redis_server)], creationflags=subprocess.CREATE_NEW_CONSOLE
-            )
-            time.sleep(1.5)  # 等待 Redis 初始化
-            if check_redis(redis_path):
-                logger.info("Redis started successfully")
-                return True
-        except Exception as e:
-            logger.error(f"Failed to start Redis on attempt {attempt + 1}: {e}")
-    logger.error("Failed to start Redis after 3 attempts. Please check the path or start manually.")
-    return False
-
-
-# 通过发送 PING 命令验证 Redis 是否运行
-def check_redis(redis_path: str) -> bool:
-    redis_cli = Path(redis_path) / "redis-cli.exe"
-    if not redis_cli.exists():
-        logger.error(
-            f"Redis CLI not found at {redis_cli}. Please ensure Redis is installed correctly."
-        )
         messagebox.showerror(
-            "Error",
-            f"Redis CLI not found at {redis_cli}. Please install Redis or update the REDIS_PATH in .env.",
+            "Error", f"Redis server not found at {redis_server}. Please check REDIS_PATH."
         )
         return False
 
+    logger.info(f"Starting Redis server: {redis_server}")
     try:
-        result = subprocess.run([str(redis_cli), "ping"], capture_output=True, text=True, timeout=5)
-        if result.stdout.strip() == "PONG":
-            logger.info("Redis is running and responding to PING")
-            return True
-        else:
-            logger.warning(f"Redis PING returned unexpected result: {result.stdout.strip()}")
-            return False
+        redis_process = subprocess.Popen(
+            [str(redis_server)],
+            creationflags=subprocess.CREATE_NEW_CONSOLE,
+            cwd=str(redis_path),
+        )
+        time.sleep(2)  # Give Redis some time to initialize
+        logger.info("Redis started successfully")
+        return True
     except Exception as e:
-        logger.error(f"Error checking Redis: {e}")
+        logger.error(f"Failed to start Redis: {e}")
+        if redis_process and redis_process.poll() is None:
+            terminate_process_tree(redis_process.pid)
         return False
 
 
@@ -529,17 +509,26 @@ def shutdown_services():
     global frontend_process, backend_process, redis_process
     logger.info("Shutting down services...")
 
-    if backend_process and backend_process.poll() is None:
-        logger.info("Terminating backend server...")
-        terminate_process_tree(backend_process.pid)
+    if backend_process:
+        if backend_process.poll() is None:
+            logger.info("Terminating backend server...")
+            terminate_process_tree(backend_process.pid)
+        else:
+            logger.info("Backend process already terminated")
 
-    if frontend_process and frontend_process.poll() is None:
-        logger.info("Terminating frontend server...")
-        terminate_process_tree(frontend_process.pid)
+    if frontend_process:
+        if frontend_process.poll() is None:
+            logger.info("Terminating frontend server...")
+            terminate_process_tree(frontend_process.pid)
+        else:
+            logger.info("Frontend process already terminated")
 
-    if redis_process and redis_process.poll() is None:
-        logger.info("Terminating Redis server...")
-        terminate_process_tree(redis_process.pid)
+    if redis_process:
+        if redis_process.poll() is None:
+            logger.info("Terminating Redis server...")
+            terminate_process_tree(redis_process.pid)
+        else:
+            logger.info("Redis process already terminated")
 
     logger.info("All services stopped.")
 
@@ -547,9 +536,6 @@ def shutdown_services():
 # 处理终止信号
 def signal_handler(sig, frame):
     logger.info(f"Received signal {sig}, initiating shutdown...")
-    shutdown_services()
-    clear_python_cache(project_root)
-    logger.info("Project shutdown complete.")
     sys.exit(0)
 
 
@@ -573,13 +559,10 @@ def main():
         nodejs_path = select_directory("Select Node.js installation directory")
         set_key(env_path, "NODEJS_PATH", nodejs_path, quote_mode="never")
 
-    logger.info("Checking Redis status...")
-    if not check_redis(redis_path):
-        if start_redis(redis_path):
-            logger.info("Redis started successfully")
-        else:
-            logger.error("Failed to start Redis. Please check the path or start manually.")
-            sys.exit(1)
+    logger.info("Starting Redis...")
+    if not start_redis(redis_path):
+        logger.error("Failed to start Redis. Please check the path or start manually.")
+        sys.exit(1)
 
     logger.info("Configuring environment files...")
     configure_env_files(project_root)
@@ -622,16 +605,22 @@ def main():
     logger.info("Frontend running at http://localhost:5173 (check console for exact port)")
 
     try:
+        last_cache_clear = time.time()
         while True:
             time.sleep(1)
+            # 检查服务运行状态
             if frontend_process and frontend_process.poll() is not None:
-                logger.error("Frontend process exited unexpectedly")
-                break
+                logger.error(f"Frontend process exited with code {frontend_process.poll()}")
+                raise RuntimeError("Frontend crashed")
             if backend_process and backend_process.poll() is not None:
-                logger.error("Backend process exited unexpectedly")
-                break
-    except KeyboardInterrupt:
-        logger.info("Received Ctrl+C, shutting down services...")
+                logger.error(f"Backend process exited with code {backend_process.poll()}")
+                raise RuntimeError("Backend crashed")
+            # 每60秒清理一次 Python 缓存
+            if time.time() - last_cache_clear >= 60:
+                clear_python_cache(project_root)
+                last_cache_clear = time.time()
+    except (KeyboardInterrupt, RuntimeError) as e:
+        logger.info(f"Shutting down due to {e}")
     finally:
         shutdown_services()
         clear_python_cache(project_root)
