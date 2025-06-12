@@ -1,6 +1,18 @@
 @echo off
 chcp 65001 >nul
 
+echo === 启动 Redis ===
+start cmd /k ".\redis-portable\redis-server.exe"
+echo 等待 Redis 启动...
+timeout /t 5 /nobreak >nul
+echo 检查 Redis 是否运行...
+redis-cli -h 127.0.0.1 -p 6379 ping | findstr PONG >nul
+if errorlevel 1 (
+    echo Redis 启动失败，请检查 redis-server.exe 或端口 6379 是否被占用
+    pause
+    exit /b
+)
+
 echo === 启动后端 ===
 cd backend
 
