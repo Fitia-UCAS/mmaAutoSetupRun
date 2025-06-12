@@ -268,4 +268,4 @@
   
 - **优化存储**：
   1. 在 Docker Desktop 的 `设置 > 资源` 修改存储路径。
-  2. 其他操作：重启电脑后运行 [DockerSetup.ps1](../收录脚本/DockerSetup.ps1)，通过符号链接迁移存储路径（**谨慎操作，回滚复杂，只推荐Hacker或者精通win系统的高手使用**）。
+  2. 其他操作：重启电脑后运行 [DockerSetup.ps1](../MMA部署(OtherScripts)/DockerSetup.ps1)，通过符号链接迁移存储路径（**谨慎操作，回滚复杂，只推荐Hacker或者精通win系统的高手使用**）。
